@@ -29,7 +29,7 @@ public class Controller : MonoBehaviour {
         if (SteamVR_Actions._default.InteractUI.GetStateDown(SteamVR_Input_Sources.Any))
         {
             Vector2 touchpadValue = touchpadAction.GetAxis(SteamVR_Input_Sources.Any);
-            //print(touchpadValue);
+            print(touchpadValue);
 
             // Where the touch pad was triggered
             if (touchpadValue.x > TRIGGER_THRESHOLD)
