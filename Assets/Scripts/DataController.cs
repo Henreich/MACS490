@@ -19,18 +19,29 @@ public class DataController : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.A)) {
-            print(allTextData);
+            //print(allTextData);
         }
     }
 
     void LoadTextData()
     {
+  
         TextData textData = new TextData();
         textData.Text = "Lorem ipsum";
 
-        //string json = JsonUtility.ToJson
+        string json = JsonUtility.ToJson(textData);
+
+        //TextData loadedData = JsonUtility.FromJson<TextData>(json);
+        //print(loadedData.Text);
 
         string filePath = Path.Combine(Application.streamingAssetsPath, TEXT_DATA_FILE_NAME);
+        string dataFromFile = File.ReadAllText(filePath);
+        TextData loadedData = JsonUtility.FromJson<TextData>(dataFromFile);
+
+        print(loadedData.Text);
+        
+        //print(Application.dataPath + "/Scripts/test.json");
+        //File.WriteAllText(Application.dataPath + "/Scripts/test.json", json);
 
 
         //if (File.Exists(filePath))
