@@ -5,13 +5,13 @@ using TMPro;
 using System.IO;
 
 public class Text : MonoBehaviour {
-    private TextMeshPro text;
+    public TextMeshPro text;
     private double MINIMUM_FONT_SIZE = 1.0f;
     private double MAXIMUM_FONT_SIZE = 7.0f;
 
     // Use this for initialization
     void Start () {
-        text = GetComponent<TextMeshPro>();
+        //text = GetComponent<TextMeshPro>();
 	}
 	
 	// Update is called once per frame
@@ -19,13 +19,13 @@ public class Text : MonoBehaviour {
        
         if (Input.GetKey(KeyCode.DownArrow) && text.fontSize > MINIMUM_FONT_SIZE)
         {
-            text.fontSize -= 0.1f;
+            text.fontSize -= 0.01f;
         }
       
 
         if (Input.GetKey(KeyCode.UpArrow) && text.fontSize < MAXIMUM_FONT_SIZE)
         {
-            text.fontSize += 0.1f;
+            text.fontSize += 0.01f;
         }
         
         // Return the result
