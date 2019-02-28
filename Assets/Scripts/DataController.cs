@@ -1,26 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEngine;
 
-public class DataController : MonoBehaviour
+public class DataController : ScriptableObject
 {
     private readonly string TEXT_DATA_FILE_NAME = "text_data.json";
 
     private TextData[] allTextData;
-
-    // Start is called before the first frame update
-    void Start()
+    public TextData[] AllTextData
     {
-        LoadTextData();
+        get
+        {
+            return allTextData;
+        }
+
+        set
+        {
+            allTextData = value;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public DataController()
     {
-        if (Input.GetKeyDown(KeyCode.A)) {
-            //print(allTextData);
-        }
+        LoadTextData();
     }
 
     /**
@@ -64,7 +68,7 @@ public class DataController : MonoBehaviour
         public List<TextData> allTextData = new List<TextData>();
     }
     [System.Serializable]
-    private class TextData
+    public class TextData
     {
         public int Id;
         public string Text;

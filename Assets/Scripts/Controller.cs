@@ -1,15 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR;
 using Valve.VR;
 using TMPro;
 
 public class Controller : MonoBehaviour { 
-    //public XRNode NodeType;
-
     public SteamVR_Action_Single squeezeAction;
     public SteamVR_Action_Vector2 touchpadAction;
+
+    private DataController dataController;
 
     public TextMeshPro text;
     private double MINIMUM_FONT_SIZE = 1.0f;
@@ -17,10 +16,14 @@ public class Controller : MonoBehaviour {
     private double TRIGGER_THRESHOLD = 0.85f;
     private float TEXT_SIZING_INCREMENTS = 0.01f;
 
+    private int currentTextShown = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         //text = GetComponent<TextMeshPro>();
+        dataController = ScriptableObject.CreateInstance<DataController>();
+        print(dataController.AllTextData.Length);
     }
 
     // Update is called once per frame
@@ -63,6 +66,13 @@ public class Controller : MonoBehaviour {
         {
             //print("Trigger down.");
             print(text.fontSize);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (currentTextShown == dataController.AllTextData.Length) currentTextShown = 0;
+            text.text = dataController.AllTextData[currentTextShown++].Text;
         }
 
     }
