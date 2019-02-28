@@ -11,6 +11,8 @@ public class Controller : MonoBehaviour {
     private DataController dataController;
 
     public TextMeshPro text;
+    public TMP_CharacterInfo characterInfo;
+
     private double MINIMUM_FONT_SIZE = 1.0f;
     private double MAXIMUM_FONT_SIZE = 7.0f;
     private double TRIGGER_THRESHOLD = 0.85f;
@@ -24,6 +26,20 @@ public class Controller : MonoBehaviour {
         //text = GetComponent<TextMeshPro>();
         dataController = ScriptableObject.CreateInstance<DataController>();
         print(dataController.AllTextData.Length);
+
+        //print(text.characterInfo.baseLine);
+        text.ForceMeshUpdate(true);
+        print("character:" + text.GetTextInfo(text.text).characterInfo[0].character);
+        print("baseLine:" + text.GetTextInfo(text.text).characterInfo[0].baseLine);
+        print("lineNumber:" + text.GetTextInfo(text.text).characterInfo[0].lineNumber);
+        print("scale:" + text.GetTextInfo(text.text).characterInfo[0].scale);
+        print("pointSize:" + text.GetTextInfo(text.text).characterInfo[0].pointSize); // Font size
+        print("vertexIndex:" + text.GetTextInfo(text.text).characterInfo[0].vertexIndex);
+
+        print("word count:" + text.GetTextInfo(text.text).wordCount);
+        print("lineHeight:" + text.GetTextInfo(text.text).lineInfo[0].lineHeight);
+
+
     }
 
     // Update is called once per frame
