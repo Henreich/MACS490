@@ -2,14 +2,19 @@
 using System.Collections;
 using TMPro;
 
+
+/**
+ * Initially from this forum thread.
+ * http://digitalnativestudios.com/forum/index.php?topic=998.0
+ */
 public class WarpTextExample : MonoBehaviour
 {
 
-    public TMP_Text m_TextComponent;
+    private TextMeshPro m_TextComponent;
 
-    public AnimationCurve VertexCurve = new AnimationCurve( new Keyframe(0, 0),
+    public AnimationCurve VertexCurve = new AnimationCurve( new Keyframe(0.0f, 0.0f),
                                                             new Keyframe(1.0f, 1.0f),
-                                                            new Keyframe(2.0f, 0f)
+                                                            new Keyframe(2.0f, 0.0f)
                                                             );
     public float AngleMultiplier = 1.0f;
     public float SpeedMultiplier = 1.0f;
@@ -17,7 +22,7 @@ public class WarpTextExample : MonoBehaviour
 
     void Awake()
     {
-        //m_TextComponent = gameObject.GetComponent<TMP_Text>();
+        m_TextComponent = gameObject.GetComponent<TextMeshPro>();
     }
 
 
@@ -29,9 +34,10 @@ public class WarpTextExample : MonoBehaviour
 
     private AnimationCurve CopyAnimationCurve(AnimationCurve curve)
     {
-        AnimationCurve newCurve = new AnimationCurve();
-
-        newCurve.keys = curve.keys;
+        AnimationCurve newCurve = new AnimationCurve
+        {
+            keys = curve.keys
+        };
 
         return newCurve;
     }
@@ -47,9 +53,7 @@ public class WarpTextExample : MonoBehaviour
         VertexCurve.preWrapMode = WrapMode.Clamp;
         VertexCurve.postWrapMode = WrapMode.Clamp;
 
-        Debug.Log(m_TextComponent.textInfo);
-        Debug.Log(m_TextComponent.textInfo.meshInfo[0].mesh);
-        Mesh mesh = m_TextComponent.textInfo.meshInfo[0].mesh;
+        //Mesh mesh = m_TextComponent.textInfo.meshInfo[0].mesh;
 
         Vector3[] vertices;
         Matrix4x4 matrix;
@@ -81,10 +85,10 @@ public class WarpTextExample : MonoBehaviour
             //vertices = textInfo.meshInfo[0].vertices;
             //int lastVertexIndex = textInfo.characterInfo[characterCount - 1].vertexIndex;
 
-            float boundsMinX = mesh.bounds.min.x;
-            float boundsMaxX = mesh.bounds.max.x;
-
-
+            float boundsMinX = m_TextComponent.textInfo.meshInfo[0].mesh.bounds.min.x;
+            float boundsMaxX = m_TextComponent.textInfo.meshInfo[0].mesh.bounds.max.x;
+            //print("boundsMinX | maxX ==>" + boundsMinX + " | " + boundsMaxX);
+           
             for (int i = 0; i < characterCount; i++)
             {
                 if (!textInfo.characterInfo[i].isVisible)
@@ -109,19 +113,33 @@ public class WarpTextExample : MonoBehaviour
 
                 // Compute the angle of rotation for each character based on the animation curve
                 float x0 = (offsetToMidBaseline.x - boundsMinX) / (boundsMaxX - boundsMinX); // Character's position relative to the bounds of the mesh.
-                float x1 = x0 + 0.0001f;
+                float x1 = x0 + 0.0001f; // Magic number..?
                 float y0 = VertexCurve.Evaluate(x0) * CurveScale;
                 float y1 = VertexCurve.Evaluate(x1) * CurveScale;
 
                 Vector3 horizontal = new Vector3(1, 0, 0);
                 //Vector3 normal = new Vector3(-(y1 - y0), (x1 * (boundsMaxX - boundsMinX) + boundsMinX) - offsetToMidBaseline.x, 0);
+                // Tangent should be indicating just how much a letter needs to be rotated in order to look good on the curve.
+                // Tangent line that intercepts curve in a single spot..?
                 Vector3 tangent = new Vector3(x1 * (boundsMaxX - boundsMinX) + boundsMinX, y1) - new Vector3(offsetToMidBaseline.x, y0);
+                print("Tangent " + tangent.x + " | " + tangent.y + " | " + tangent.z);
 
+                // Magic number here comes from hardcoding a value that makes the letter make sense with the curve displayed in the
+                // unmodified example. In this case we need to make it work with a round curve in the Z-axis.
                 float dot = Mathf.Acos(Vector3.Dot(horizontal, tangent.normalized)) * 57.2957795f;
                 Vector3 cross = Vector3.Cross(horizontal, tangent);
                 float angle = cross.z > 0 ? dot : 360 - dot;
 
-                matrix = Matrix4x4.TRS(new Vector3(0, y0, 0), Quaternion.Euler(0, 0, angle), Vector3.one);
+                //print(dot);
+                //print(cross);
+                //print(angle);
+                //matrix = Matrix4x4.TRS(new Vector3(0, y0, 0), Quaternion.Euler(0, 0, angle), Vector3.one);
+                //print(angle);
+                matrix = Matrix4x4.TRS(new Vector3(0, 0, y0), Quaternion.Euler(0, -90, 0), Vector3.one); // Z "rotation"
+                // TRANSLATION/POSITION = Placement along the Z-axis when (0, 0, VALUE)
+                // ROTATION = Rotation along the Y-axis (0, Value, 0)
+                // SCALE = No change needed.
+
 
                 vertices[vertexIndex + 0] = matrix.MultiplyPoint3x4(vertices[vertexIndex + 0]);
                 vertices[vertexIndex + 1] = matrix.MultiplyPoint3x4(vertices[vertexIndex + 1]);
@@ -138,7 +156,8 @@ public class WarpTextExample : MonoBehaviour
             // Upload the mesh with the revised information
             m_TextComponent.UpdateVertexData();
 
-            yield return new WaitForSeconds(0.025f);
+            //yield return new WaitForSeconds(0.025f);
+            yield return null;
         }
     }
 
