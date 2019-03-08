@@ -67,14 +67,18 @@ def getTextFromFile():
 
 
 ## Main
+
+
 bpy.ops.object.select_all(action='TOGGLE')
 bpy.ops.object.select_all(action='TOGGLE')
 bpy.ops.object.delete()
 
 
 data = getTextFromFile()
+i = 1
 for Text in data['Items']:
     createCurvedText(Text['Text'], 0.5, 0.75)
+    i += 1
 #for modifier in range(1, 5):
 	# (radius, textBoxWidth)
 #	createCurvedText(modifier * 0.5, modifier * 0.75)
