@@ -32,7 +32,6 @@ public class Controller : MonoBehaviour {
     void Update()
     {
         Vector2 touchpadValue = touchpadAction.GetAxis(SteamVR_Input_Sources.Any);
-        print(touchpadValue);
 
         // Where the touch pad was triggered
         if (touchpadValue.x > 0.0f) // RIGHT
@@ -67,6 +66,11 @@ public class Controller : MonoBehaviour {
 
         //}
 
+
+        /**
+         * Set "screen" height to match the height of the user's head.
+         * TODO Maybe position it  a bit lower than the user's head. Example 6 degrees down (Google I/0 17)
+         */
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
         {
 
@@ -74,7 +78,9 @@ public class Controller : MonoBehaviour {
             screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
         }
 
-
+        /**
+         * Change the text that is being displayed
+         */
         if (Input.GetKeyDown(KeyCode.A))
         {
             if (currentTextShown == dataController.AllTextData.Length) currentTextShown = 0;
