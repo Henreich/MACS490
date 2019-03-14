@@ -12,13 +12,15 @@ public class Controller : MonoBehaviour
     private DataController dataController;
 
     public TextMeshPro text;
-    public Transform screen;
+    public GameObject screen;
     public Camera head;
     private double MINIMUM_FONT_SIZE = 1.0f;
     private double MAXIMUM_FONT_SIZE = 7.0f;
     private double TRIGGER_THRESHOLD = 0.0f;
     private float TEXT_SIZING_INCREMENTS = 0.0001f;
     private float TEXT_SIZE_CHANGE_MODIFIER = 5;
+    private readonly float WORLD_CENTER = 0.0f;
+    private readonly float ANGLE_COMFORTABLE_DOWN = 6.0f;
 
     private int currentTextShown = 0;
 
@@ -51,11 +53,11 @@ public class Controller : MonoBehaviour
             // Where the touch pad was triggered
             if (touchpadValue.y > TRIGGER_THRESHOLD) // UP
             {
-                screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z + 1.0f);
+                screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, screen.transform.localPosition.y, screen.transform.localPosition.z + 1.0f);
             }
             else if (touchpadValue.y < -TRIGGER_THRESHOLD) // DOWN
             {
-                screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z - 1.0f);
+                screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, screen.transform.localPosition.y, screen.transform.localPosition.z - 1.0f);
             }
 
         }
@@ -74,9 +76,7 @@ public class Controller : MonoBehaviour
          */
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
         {
-
-            print(head.transform.localPosition);
-            screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
+            SetScreenPosition(screen.transform);
         }
 
         /**
@@ -88,5 +88,43 @@ public class Controller : MonoBehaviour
             text.text = dataController.AllTextData[currentTextShown++].Text;
         }
 
+        /*
+         * Move screen down 6 degrees from the horizon line
+         */
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            SetScreenPosition(screen.transform);
+        }
+
+        /*
+         * Start experiment
+         */
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            screen.SetActive(true);
+            Vector3 StartPos = screen.transform.localPosition;
+            screen.transform.localPosition = new Vector3(StartPos.x, head.transform.localPosition.y, StartPos.z);
+        }
+    }
+
+    /**
+     * Get amount of distance units between the object and the center (0, 0, 0)
+     **/
+    private float GetZDistanceFromZero(Transform obj)
+    {
+        return System.Math.Abs(obj.localPosition.z - WORLD_CENTER);
+    }
+
+    /*
+     * Sets the screens position to be ANGLE_COMFORTABLE_DOWN degrees down from the y
+     * position of the head camera.
+     */
+    private void SetScreenPosition(Transform screen)
+    {
+        //float distanceToScreen = GetZDistanceFromZero(screen);
+        //float offset = distanceToScreen / Mathf.Cos(ANGLE_COMFORTABLE_DOWN * Mathf.Deg2Rad);
+        //float CalculatedYPos = head.transform.localPosition.y - offset;
+
+        //screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, CalculatedYPos, screen.localPosition.z);
     }
 }
