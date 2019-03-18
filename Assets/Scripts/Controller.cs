@@ -11,6 +11,15 @@ public class Controller : MonoBehaviour
 
     private DataController dataController;
 
+    private enum ExperimentStage
+    {
+        text_flat,
+        text_curved,
+        text_box_dimensions,
+    };
+
+    private ExperimentStage experimentStage = 0;
+
     public TextMeshPro text;
     public Transform screen;
     public Camera head;
@@ -31,6 +40,50 @@ public class Controller : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        switch (experimentStage)
+        {
+            case ExperimentStage.text_flat:
+                ChangeTextSize();
+                break;
+            case ExperimentStage.text_curved:
+                break;
+            case ExperimentStage.text_box_dimensions:
+                break;
+            default:
+                break;
+        }
+        //float triggerValue = squeezeAction.GetAxis(SteamVR_Input_Sources.Any);
+
+        //if (triggerValue > 0.0f)
+        //{
+
+        //}
+
+
+        /**
+         * Set "screen" height to match the height of the user's head.
+         * TODO Maybe position it  a bit lower than the user's head. Example 6 degrees down (Google I/0 17)
+         */
+        if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
+        {
+
+            print(head.transform.localPosition);
+            screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
+        }
+
+        /**
+         * Change the text that is being displayed
+         */
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            if (currentTextShown == dataController.AllTextData.Length) currentTextShown = 0;
+            text.text = dataController.AllTextData[currentTextShown++].Text;
+        }
+
+    }
+
+    private void ChangeTextSize()
     {
         Vector2 touchpadValue = touchpadAction.GetAxis(SteamVR_Input_Sources.Any);
 
@@ -58,34 +111,6 @@ public class Controller : MonoBehaviour
                 screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z - 1.0f);
             }
 
-        }
-
-        //float triggerValue = squeezeAction.GetAxis(SteamVR_Input_Sources.Any);
-
-        //if (triggerValue > 0.0f)
-        //{
-
-        //}
-
-
-        /**
-         * Set "screen" height to match the height of the user's head.
-         * TODO Maybe position it  a bit lower than the user's head. Example 6 degrees down (Google I/0 17)
-         */
-        if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
-        {
-
-            print(head.transform.localPosition);
-            screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
-        }
-
-        /**
-         * Change the text that is being displayed
-         */
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            if (currentTextShown == dataController.AllTextData.Length) currentTextShown = 0;
-            text.text = dataController.AllTextData[currentTextShown++].Text;
         }
 
     }
