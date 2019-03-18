@@ -12,7 +12,9 @@ def createCurvedText(text, radius, textBoxWidth):
 
 
 	# Text creation
-	bpy.ops.object.text_add(location=(0,0,0))
+    # Place the text in the middle of the axis using the textBoxWidth
+    # inverted as the text's left borders are at x = 0
+	bpy.ops.object.text_add(location=(-textBoxWidth / 2 ,0,0))
 
 	textObject=bpy.context.object
 	textObject.data.size = 0.05 # "Font-size"
@@ -75,11 +77,12 @@ bpy.ops.object.delete()
 
 
 data = getTextFromFile()
-i = 1
+
 for Text in data['Items']:
-    createCurvedText(Text['Text'], 0.5, 0.75)
-    i += 1
+    if Text['Id'] == 1:
+        i = 0;
+        for textBoxWidth in range (2, 8):
+            createCurvedText(Text['Text'], 1, textBoxWidth * 0.25)
 #for modifier in range(1, 5):
-	# (radius, textBoxWidth)
-#	createCurvedText(modifier * 0.5, modifier * 0.75)
-	
+#	 (radius, textBoxWidth)
+#	createCurvedText(data['Items']['Text'][0], modifier * 0.5, modifier * 0.75)

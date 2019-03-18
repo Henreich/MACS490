@@ -1,0 +1,217 @@
+fileFormatVersion: 2
+guid: b8ca7fef869eadb479ca87a4669eea54
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: BezierCircle
+    100004: BezierCircle_001
+    100006: BezierCircle_002
+    100008: BezierCircle_003
+    100010: BezierCircle_004
+    100012: BezierCircle_005
+    100014: Text
+    100016: Text_001
+    100018: Text_002
+    100020: Text_003
+    100022: Text_004
+    100024: Text_005
+    100026: BezierCircle_006
+    100028: BezierCircle_007
+    100030: BezierCircle_008
+    100032: BezierCircle_009
+    100034: BezierCircle_010
+    100036: BezierCircle_011
+    100038: Text_006
+    100040: Text_007
+    100042: Text_008
+    100044: Text_009
+    100046: Text_010
+    100048: Text_011
+    400000: //RootNode
+    400002: BezierCircle
+    400004: BezierCircle_001
+    400006: BezierCircle_002
+    400008: BezierCircle_003
+    400010: BezierCircle_004
+    400012: BezierCircle_005
+    400014: Text
+    400016: Text_001
+    400018: Text_002
+    400020: Text_003
+    400022: Text_004
+    400024: Text_005
+    400026: BezierCircle_006
+    400028: BezierCircle_007
+    400030: BezierCircle_008
+    400032: BezierCircle_009
+    400034: BezierCircle_010
+    400036: BezierCircle_011
+    400038: Text_006
+    400040: Text_007
+    400042: Text_008
+    400044: Text_009
+    400046: Text_010
+    400048: Text_011
+    2100000: Black_font_colour
+    2300000: BezierCircle
+    2300002: BezierCircle_001
+    2300004: BezierCircle_002
+    2300006: BezierCircle_003
+    2300008: BezierCircle_004
+    2300010: BezierCircle_005
+    2300012: Text
+    2300014: Text_001
+    2300016: Text_002
+    2300018: Text_003
+    2300020: Text_004
+    2300022: Text_005
+    2300024: BezierCircle_006
+    2300026: BezierCircle_007
+    2300028: BezierCircle_008
+    2300030: BezierCircle_009
+    2300032: BezierCircle_010
+    2300034: BezierCircle_011
+    2300036: Text_006
+    2300038: Text_007
+    2300040: Text_008
+    2300042: Text_009
+    2300044: Text_010
+    2300046: Text_011
+    3300000: BezierCircle
+    3300002: BezierCircle_001
+    3300004: BezierCircle_002
+    3300006: BezierCircle_003
+    3300008: BezierCircle_004
+    3300010: BezierCircle_005
+    3300012: Text
+    3300014: Text_001
+    3300016: Text_002
+    3300018: Text_003
+    3300020: Text_004
+    3300022: Text_005
+    3300024: BezierCircle_006
+    3300026: BezierCircle_007
+    3300028: BezierCircle_008
+    3300030: BezierCircle_009
+    3300032: BezierCircle_010
+    3300034: BezierCircle_011
+    3300036: Text_006
+    3300038: Text_007
+    3300040: Text_008
+    3300042: Text_009
+    3300044: Text_010
+    3300046: Text_011
+    4300000: BezierCircle_005
+    4300002: Text_005
+    4300004: BezierCircle_004
+    4300006: Text_004
+    4300008: BezierCircle_003
+    4300010: Text_003
+    4300012: BezierCircle_002
+    4300014: Text_002
+    4300016: BezierCircle_001
+    4300018: Text_001
+    4300020: BezierCircle
+    4300022: Text
+    4300024: BezierCircle_011
+    4300026: Text_011
+    4300028: BezierCircle_010
+    4300030: Text_010
+    4300032: BezierCircle_009
+    4300034: Text_009
+    4300036: BezierCircle_008
+    4300038: Text_008
+    4300040: BezierCircle_007
+    4300042: Text_007
+    4300044: BezierCircle_006
+    4300046: Text_006
+    7400000: Default Take
+    9500000: //RootNode
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
