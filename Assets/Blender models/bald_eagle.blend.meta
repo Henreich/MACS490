@@ -28,6 +28,66 @@ ModelImporter:
     100044: Text_009
     100046: Text_010
     100048: Text_011
+    100050: Text_012
+    100052: Text_013
+    100054: Text_014
+    100056: Text_015
+    100058: Text_016
+    100060: Text_017
+    100062: Text_018
+    100064: Text_019
+    100066: Text_020
+    100068: Text_021
+    100070: Text_022
+    100072: Text_023
+    100074: Radius-0_5
+    100076: Radius-1
+    100078: Radius-1_5
+    100080: Radius-2
+    100082: Text-WithWidth-0_000
+    100084: Text-WithWidth-0_001
+    100086: Text-WithWidth-0_002
+    100088: Text-WithWidth-0_003
+    100090: Text-WithWidth-0_004
+    100092: Text-WithWidth-0_006
+    100094: Text-WithWidth-0_5
+    100096: Text-WithWidth-0_75
+    100098: Text-WithWidth-1_0
+    100100: Text-WithWidth-1_001
+    100102: Text-WithWidth-1_002
+    100104: Text-WithWidth-1_003
+    100106: Text-WithWidth-1_004
+    100108: Text-WithWidth-1_006
+    100110: Text-WithWidth-1_007
+    100112: Text-WithWidth-1_008
+    100114: Text-WithWidth-1_009
+    100116: Text-WithWidth-1_010
+    100118: Text-WithWidth-1_011
+    100120: Text-WithWidth-1_012
+    100122: Text-WithWidth-1_013
+    100124: Text-WithWidth-1_25
+    100126: Text-WithWidth-1_5
+    100128: Text-WithWidth-1_75
+    100130: Text_0_5_
+    100132: Text_0_5__001
+    100134: Text_0_5__002
+    100136: Text_0_5__003
+    100138: Text_0_75_
+    100140: Text_0_75__001
+    100142: Text_0_75__002
+    100144: Text_0_75__003
+    100146: Text_1_0_
+    100148: Text_1_0__001
+    100150: Text_1_0__002
+    100152: Text_1_0__003
+    100154: Text_1_25_
+    100156: Text_1_25__001
+    100158: Text_1_25__002
+    100160: Text_1_25__003
+    100162: Text_1_5_
+    100164: Text_1_5__001
+    100166: Text_1_5__002
+    100168: Text_1_5__003
     400000: //RootNode
     400002: BezierCircle
     400004: BezierCircle_001
@@ -53,6 +113,66 @@ ModelImporter:
     400044: Text_009
     400046: Text_010
     400048: Text_011
+    400050: Text_012
+    400052: Text_013
+    400054: Text_014
+    400056: Text_015
+    400058: Text_016
+    400060: Text_017
+    400062: Text_018
+    400064: Text_019
+    400066: Text_020
+    400068: Text_021
+    400070: Text_022
+    400072: Text_023
+    400074: Radius-0_5
+    400076: Radius-1
+    400078: Radius-1_5
+    400080: Radius-2
+    400082: Text-WithWidth-0_000
+    400084: Text-WithWidth-0_001
+    400086: Text-WithWidth-0_002
+    400088: Text-WithWidth-0_003
+    400090: Text-WithWidth-0_004
+    400092: Text-WithWidth-0_006
+    400094: Text-WithWidth-0_5
+    400096: Text-WithWidth-0_75
+    400098: Text-WithWidth-1_0
+    400100: Text-WithWidth-1_001
+    400102: Text-WithWidth-1_002
+    400104: Text-WithWidth-1_003
+    400106: Text-WithWidth-1_004
+    400108: Text-WithWidth-1_006
+    400110: Text-WithWidth-1_007
+    400112: Text-WithWidth-1_008
+    400114: Text-WithWidth-1_009
+    400116: Text-WithWidth-1_010
+    400118: Text-WithWidth-1_011
+    400120: Text-WithWidth-1_012
+    400122: Text-WithWidth-1_013
+    400124: Text-WithWidth-1_25
+    400126: Text-WithWidth-1_5
+    400128: Text-WithWidth-1_75
+    400130: Text_0_5_
+    400132: Text_0_5__001
+    400134: Text_0_5__002
+    400136: Text_0_5__003
+    400138: Text_0_75_
+    400140: Text_0_75__001
+    400142: Text_0_75__002
+    400144: Text_0_75__003
+    400146: Text_1_0_
+    400148: Text_1_0__001
+    400150: Text_1_0__002
+    400152: Text_1_0__003
+    400154: Text_1_25_
+    400156: Text_1_25__001
+    400158: Text_1_25__002
+    400160: Text_1_25__003
+    400162: Text_1_5_
+    400164: Text_1_5__001
+    400166: Text_1_5__002
+    400168: Text_1_5__003
     2100000: Black_font_colour
     2300000: BezierCircle
     2300002: BezierCircle_001
@@ -78,6 +198,66 @@ ModelImporter:
     2300042: Text_009
     2300044: Text_010
     2300046: Text_011
+    2300048: Text_012
+    2300050: Text_013
+    2300052: Text_014
+    2300054: Text_015
+    2300056: Text_016
+    2300058: Text_017
+    2300060: Text_018
+    2300062: Text_019
+    2300064: Text_020
+    2300066: Text_021
+    2300068: Text_022
+    2300070: Text_023
+    2300072: Radius-0_5
+    2300074: Radius-1
+    2300076: Radius-1_5
+    2300078: Radius-2
+    2300080: Text-WithWidth-0_000
+    2300082: Text-WithWidth-0_001
+    2300084: Text-WithWidth-0_002
+    2300086: Text-WithWidth-0_003
+    2300088: Text-WithWidth-0_004
+    2300090: Text-WithWidth-0_006
+    2300092: Text-WithWidth-0_5
+    2300094: Text-WithWidth-0_75
+    2300096: Text-WithWidth-1_0
+    2300098: Text-WithWidth-1_001
+    2300100: Text-WithWidth-1_002
+    2300102: Text-WithWidth-1_003
+    2300104: Text-WithWidth-1_004
+    2300106: Text-WithWidth-1_006
+    2300108: Text-WithWidth-1_007
+    2300110: Text-WithWidth-1_008
+    2300112: Text-WithWidth-1_009
+    2300114: Text-WithWidth-1_010
+    2300116: Text-WithWidth-1_011
+    2300118: Text-WithWidth-1_012
+    2300120: Text-WithWidth-1_013
+    2300122: Text-WithWidth-1_25
+    2300124: Text-WithWidth-1_5
+    2300126: Text-WithWidth-1_75
+    2300128: Text_0_5_
+    2300130: Text_0_5__001
+    2300132: Text_0_5__002
+    2300134: Text_0_5__003
+    2300136: Text_0_75_
+    2300138: Text_0_75__001
+    2300140: Text_0_75__002
+    2300142: Text_0_75__003
+    2300144: Text_1_0_
+    2300146: Text_1_0__001
+    2300148: Text_1_0__002
+    2300150: Text_1_0__003
+    2300152: Text_1_25_
+    2300154: Text_1_25__001
+    2300156: Text_1_25__002
+    2300158: Text_1_25__003
+    2300160: Text_1_5_
+    2300162: Text_1_5__001
+    2300164: Text_1_5__002
+    2300166: Text_1_5__003
     3300000: BezierCircle
     3300002: BezierCircle_001
     3300004: BezierCircle_002
@@ -102,6 +282,66 @@ ModelImporter:
     3300042: Text_009
     3300044: Text_010
     3300046: Text_011
+    3300048: Text_012
+    3300050: Text_013
+    3300052: Text_014
+    3300054: Text_015
+    3300056: Text_016
+    3300058: Text_017
+    3300060: Text_018
+    3300062: Text_019
+    3300064: Text_020
+    3300066: Text_021
+    3300068: Text_022
+    3300070: Text_023
+    3300072: Radius-0_5
+    3300074: Radius-1
+    3300076: Radius-1_5
+    3300078: Radius-2
+    3300080: Text-WithWidth-0_000
+    3300082: Text-WithWidth-0_001
+    3300084: Text-WithWidth-0_002
+    3300086: Text-WithWidth-0_003
+    3300088: Text-WithWidth-0_004
+    3300090: Text-WithWidth-0_006
+    3300092: Text-WithWidth-0_5
+    3300094: Text-WithWidth-0_75
+    3300096: Text-WithWidth-1_0
+    3300098: Text-WithWidth-1_001
+    3300100: Text-WithWidth-1_002
+    3300102: Text-WithWidth-1_003
+    3300104: Text-WithWidth-1_004
+    3300106: Text-WithWidth-1_006
+    3300108: Text-WithWidth-1_007
+    3300110: Text-WithWidth-1_008
+    3300112: Text-WithWidth-1_009
+    3300114: Text-WithWidth-1_010
+    3300116: Text-WithWidth-1_011
+    3300118: Text-WithWidth-1_012
+    3300120: Text-WithWidth-1_013
+    3300122: Text-WithWidth-1_25
+    3300124: Text-WithWidth-1_5
+    3300126: Text-WithWidth-1_75
+    3300128: Text_0_5_
+    3300130: Text_0_5__001
+    3300132: Text_0_5__002
+    3300134: Text_0_5__003
+    3300136: Text_0_75_
+    3300138: Text_0_75__001
+    3300140: Text_0_75__002
+    3300142: Text_0_75__003
+    3300144: Text_1_0_
+    3300146: Text_1_0__001
+    3300148: Text_1_0__002
+    3300150: Text_1_0__003
+    3300152: Text_1_25_
+    3300154: Text_1_25__001
+    3300156: Text_1_25__002
+    3300158: Text_1_25__003
+    3300160: Text_1_5_
+    3300162: Text_1_5__001
+    3300164: Text_1_5__002
+    3300166: Text_1_5__003
     4300000: BezierCircle_005
     4300002: Text_005
     4300004: BezierCircle_004
@@ -126,6 +366,66 @@ ModelImporter:
     4300042: Text_007
     4300044: BezierCircle_006
     4300046: Text_006
+    4300048: Text_023
+    4300050: Text_022
+    4300052: Text_021
+    4300054: Text_020
+    4300056: Text_019
+    4300058: Text_018
+    4300060: Text_017
+    4300062: Text_016
+    4300064: Text_015
+    4300066: Text_014
+    4300068: Text_013
+    4300070: Text_012
+    4300072: Radius-2
+    4300074: Text-WithWidth-1_013
+    4300076: Text-WithWidth-1_012
+    4300078: Text-WithWidth-1_011
+    4300080: Text-WithWidth-1_010
+    4300082: Text-WithWidth-0_006
+    4300084: Text-WithWidth-0_004
+    4300086: Radius-1_5
+    4300088: Text-WithWidth-1_009
+    4300090: Text-WithWidth-1_008
+    4300092: Text-WithWidth-1_007
+    4300094: Text-WithWidth-1_006
+    4300096: Text-WithWidth-0_003
+    4300098: Text-WithWidth-0_002
+    4300100: Radius-1
+    4300102: Text-WithWidth-1_004
+    4300104: Text-WithWidth-1_003
+    4300106: Text-WithWidth-1_002
+    4300108: Text-WithWidth-1_001
+    4300110: Text-WithWidth-0_001
+    4300112: Text-WithWidth-0_000
+    4300114: Radius-0_5
+    4300116: Text-WithWidth-1_75
+    4300118: Text-WithWidth-1_5
+    4300120: Text-WithWidth-1_25
+    4300122: Text-WithWidth-1_0
+    4300124: Text-WithWidth-0_75
+    4300126: Text-WithWidth-0_5
+    4300128: Text_1_5__003
+    4300130: Text_1_25__003
+    4300132: Text_1_0__003
+    4300134: Text_0_75__003
+    4300136: Text_0_5__003
+    4300138: Text_1_5__002
+    4300140: Text_1_25__002
+    4300142: Text_1_0__002
+    4300144: Text_0_75__002
+    4300146: Text_0_5__002
+    4300148: Text_1_5__001
+    4300150: Text_1_25__001
+    4300152: Text_1_0__001
+    4300154: Text_0_75__001
+    4300156: Text_0_5__001
+    4300158: Text_1_5_
+    4300160: Text_1_25_
+    4300162: Text_1_0_
+    4300164: Text_0_75_
+    4300166: Text_0_5_
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
