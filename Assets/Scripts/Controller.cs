@@ -14,6 +14,8 @@ public class Controller : MonoBehaviour
     public TextMeshPro text;
     public Transform screen;
     public Camera head;
+    public GameObject textCollection;
+
     private double MINIMUM_FONT_SIZE = 1.0f;
     private double MAXIMUM_FONT_SIZE = 7.0f;
     private double TRIGGER_THRESHOLD = 0.0f;
@@ -86,6 +88,12 @@ public class Controller : MonoBehaviour
         {
             if (currentTextShown == dataController.AllTextData.Length) currentTextShown = 0;
             text.text = dataController.AllTextData[currentTextShown++].Text;
+        }
+
+        // WIP-DEV - Cycle through game objects
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+
         }
 
     }
