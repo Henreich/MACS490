@@ -14,7 +14,7 @@ public class Controller : MonoBehaviour
     public TextMeshPro text;
     public Transform screen;
     public Camera head;
-    public GameObject textCollection;
+    public Transform textCollection;
 
     private double MINIMUM_FONT_SIZE = 1.0f;
     private double MAXIMUM_FONT_SIZE = 7.0f;
@@ -24,11 +24,29 @@ public class Controller : MonoBehaviour
 
     private int currentTextShown = 0;
 
+    private int currentVisibleObject = 0;
+    private List<Transform> textList;
+
     // Start is called before the first frame update
     void Start()
     {
         dataController = ScriptableObject.CreateInstance<DataController>();
-        print(dataController.AllTextData.Length);
+        
+        /*
+         * Set up the list of text object transforms
+         */
+        textList = new List<Transform>();
+        foreach (Transform text in textCollection)
+        {
+            textList.Add(text);
+        }
+        //foreach (Transform radius in textCollection)
+        //{
+        //    foreach (Transform text in radius)
+        //    {
+        //        textList.Add(text);
+        //    }
+        //}
     }
 
     // Update is called once per frame
@@ -39,12 +57,14 @@ public class Controller : MonoBehaviour
         // Where the touch pad was triggered
         if (touchpadValue.x > 0.0f) // RIGHT
         {
-            text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
+            //text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
+            changeObjectSize(textCollection, true);
 
         }
         else if (touchpadValue.x < -0.0f) // LEFT
         {
-            text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
+            //text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
+            changeObjectSize(textCollection, false);
 
         }
 
@@ -77,8 +97,15 @@ public class Controller : MonoBehaviour
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
         {
 
-            print(head.transform.localPosition);
-            screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
+            //print(head.transform.localPosition);
+            //screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
+            if (currentVisibleObject == 0) textList[textList.Count - 1].gameObject.SetActive(false);
+
+            textList[currentVisibleObject].gameObject.SetActive(false);
+            textList[currentVisibleObject + 1].gameObject.SetActive(true);
+            currentVisibleObject++;
+
+            if (currentVisibleObject == textList.Count - 1) currentVisibleObject = 0;
         }
 
         /**
@@ -93,8 +120,23 @@ public class Controller : MonoBehaviour
         // WIP-DEV - Cycle through game objects
         if (Input.GetKeyDown(KeyCode.C))
         {
+            if (currentVisibleObject == 0) textList[textList.Count - 1].gameObject.SetActive(false);
 
+            textList[currentVisibleObject].gameObject.SetActive(false);
+            textList[currentVisibleObject + 1].gameObject.SetActive(true);
+            currentVisibleObject++;
+
+            if (currentVisibleObject == textList.Count - 1) currentVisibleObject = 0;
         }
+    }
 
+    private void changeObjectSize(Transform obj, bool increase)
+    {
+        float increment = 0.01f;
+        if (!increase) increment = -increment;
+
+        Vector3 position = obj.localScale;
+        position = new Vector3(position.x + increment, position.y + increment, position.z + increment);
+        obj.transform.localScale = position;
     }
 }
