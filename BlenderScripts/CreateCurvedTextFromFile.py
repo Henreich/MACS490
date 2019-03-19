@@ -17,13 +17,15 @@ def createCurvedText(text, textBoxWidth, circleObj):
     # inverted as the text's left borders are at x = 0
     bpy.ops.object.text_add(location=(-textBoxWidth/2, 0, 0))
     textObject=bpy.context.object
-    textObject.name = "Text(" + str(textBoxWidth) + ")"
-    print(textBoxWidth)
     textObject.data.size = 0.05 # "Font-size"
     textObject.data.align_x = 'JUSTIFY'
     textObject.data.align_y = 'CENTER'
     textObject.data.text_boxes[0].width = textBoxWidth
     textObject.data.body = text
+
+    # Name to reflect which width was used. Casting to int to avoid
+    # floating point rounding errors and casting to string be used as a name.
+    textObject.name = "Text" + str(int(textBoxWidth*10))
 
     # Set the font to Arial
     font=bpy.data.fonts.load(filepath="C:\\Windows\\Fonts\\arial.ttf")
@@ -72,7 +74,7 @@ def getTextFromFile():
 
 
 def createCurvedTextsAtDistance(initialWidth, lastWidth, textData, circleObj):
-    widthModifier = 0.25 # To do ranges in smaller increments than whole numbers
+    widthModifier = 0.10 # To do ranges in smaller increments than whole numbers
 
     for textBoxWidth in range (initialWidth, lastWidth):
         createCurvedText(textData['Text'], textBoxWidth * widthModifier, circleObj)
@@ -93,10 +95,10 @@ data = getTextFromFile()
 
 for Text in data['Items']:
     if Text['Id'] == 1:
-        createCurvedTextsAtDistance(2, 7, Text, createCircle(0.5))
-        createCurvedTextsAtDistance(2, 7, Text, createCircle(1))
-        createCurvedTextsAtDistance(2, 7, Text, createCircle(1.5))
-        createCurvedTextsAtDistance(2, 7, Text, createCircle(2))
+#        createCurvedTextsAtDistance(2, 7, Text, createCircle(0.5))
+        createCurvedTextsAtDistance(2, 20, Text, createCircle(1))
+#        createCurvedTextsAtDistance(2, 7, Text, createCircle(1.5))
+#        createCurvedTextsAtDistance(2, 7, Text, createCircle(2))
         
         
         #for textBoxWidth in range (2, 8):
