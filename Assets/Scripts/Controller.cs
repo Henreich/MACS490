@@ -12,14 +12,16 @@ public class Controller : MonoBehaviour
     public TextMeshPro text;
     public Transform screen;
     public Camera head;
+    public Transform textContainer;
     public Transform textCollection;
 
     private DataController dataController;
-    private double MINIMUM_FONT_SIZE = 1.0f;
-    private double MAXIMUM_FONT_SIZE = 7.0f;
-    private double TRIGGER_THRESHOLD = 0.0f;
-    private float TEXT_SIZING_INCREMENTS = 0.0001f;
-    private float TEXT_SIZE_CHANGE_MODIFIER = 5;
+    private readonly double MINIMUM_FONT_SIZE = 1.0f;
+    private readonly double MAXIMUM_FONT_SIZE = 7.0f;
+    private readonly double TRIGGER_THRESHOLD = 0.0f;
+    private readonly double TRIGGER_THRESHOLD_SMOOTH_SCALING = 0.3f;
+    private readonly float TEXT_SIZING_INCREMENTS = 0.0001f;
+    private readonly float TEXT_SIZE_CHANGE_MODIFIER = 5;
 
     private int currentTextShown = 0;
 
@@ -49,18 +51,18 @@ public class Controller : MonoBehaviour
         Vector2 touchpadValue = touchpadAction.GetAxis(SteamVR_Input_Sources.Any);
 
         // Where the touch pad was triggered
-        if (touchpadValue.x > 0.0f) // RIGHT
+        if (touchpadValue.x > TRIGGER_THRESHOLD_SMOOTH_SCALING) // RIGHT
         {
             //text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
             //Stage - Curved text
-            ChangeObjectSize(textCollection, true);
+            ChangeObjectSize(textContainer, true);
 
         }
-        else if (touchpadValue.x < -0.0f) // LEFT
+        else if (touchpadValue.x < -TRIGGER_THRESHOLD_SMOOTH_SCALING) // LEFT
         {
             //text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
             //Stage - Curved text
-            ChangeObjectSize(textCollection, false);
+            ChangeObjectSize(textContainer, false);
 
         }
 
@@ -69,11 +71,13 @@ public class Controller : MonoBehaviour
             // Where the touch pad was triggered
             if (touchpadValue.y > TRIGGER_THRESHOLD) // UP
             {
-                screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z + 1.0f);
+                //screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z + 1.0f);
+                ChangeVisibleObjectInList(TextWidth.increase);
             }
             else if (touchpadValue.y < -TRIGGER_THRESHOLD) // DOWN
             {
-                screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z - 1.0f);
+                //screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z - 1.0f);
+                ChangeVisibleObjectInList(TextWidth.decrease);
             }
 
         }
@@ -119,16 +123,21 @@ public class Controller : MonoBehaviour
     }
 
     /*
-     * Change the size of the object in increments.
+     * Change the size of the object in increments and keep it in the same place on the z-axis.
      */
     private void ChangeObjectSize(Transform obj, bool increase)
     {
-        float increment = 0.01f;
+        float increment = 0.001f;
         if (!increase) increment = -increment;
 
-        Vector3 position = obj.localScale;
-        position = new Vector3(position.x + increment, position.y + increment, position.z + increment);
-        obj.transform.localScale = position;
+        Vector3 scale = obj.localScale;
+        Vector3 position = obj.localPosition;
+
+        scale = new Vector3(scale.x + increment, scale.y + increment, scale.z + increment);
+        position = new Vector3(position.x, position.y, position.z - increment);
+
+        obj.transform.localScale = scale;
+        obj.transform.localPosition = position;
     }
 
     /*
