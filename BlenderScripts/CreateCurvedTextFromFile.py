@@ -7,7 +7,7 @@ def createCircle(radius):
     # Circle creation
     bpy.ops.curve.primitive_bezier_circle_add(radius=radius, location=(0, 0, 0))
     circle=bpy.context.object
-    circle.name = "Radius-" + str(radius)
+    circle.name = "Circle-radius-" + str(radius)
     #circle.hide = True
     return circle
 
@@ -17,8 +17,8 @@ def createCurvedText(text, textBoxWidth, circleObj):
     # inverted as the text's left borders are at x = 0
     bpy.ops.object.text_add(location=(-textBoxWidth/2, 0, 0))
     textObject=bpy.context.object
-    textObject.data.size = 0.05 # "Font-size"
-    textObject.data.align_x = 'JUSTIFY'
+    textObject.data.size = 0.1 # "Font-size"
+    textObject.data.align_x = 'LEFT'
     textObject.data.align_y = 'CENTER'
     textObject.data.text_boxes[0].width = textBoxWidth
     textObject.data.body = text
@@ -96,7 +96,7 @@ data = getTextFromFile()
 for Text in data['Items']:
     if Text['Id'] == 1:
 #        createCurvedTextsAtDistance(2, 7, Text, createCircle(0.5))
-        createCurvedTextsAtDistance(2, 20, Text, createCircle(1))
+        createCurvedTextsAtDistance(8, 31, Text, createCircle(1))
 #        createCurvedTextsAtDistance(2, 7, Text, createCircle(1.5))
 #        createCurvedTextsAtDistance(2, 7, Text, createCircle(2))
         

@@ -145,6 +145,17 @@ ModelImporter:
     100278: Text7
     100280: Text8
     100282: Text9
+    100284: Text20
+    100286: Text21
+    100288: Text22
+    100290: Text23
+    100292: Text24
+    100294: Text25
+    100296: Text26
+    100298: Text27
+    100300: Text28
+    100302: Text29
+    100304: Text30
     400000: //RootNode
     400002: BezierCircle
     400004: BezierCircle_001
@@ -287,6 +298,17 @@ ModelImporter:
     400278: Text7
     400280: Text8
     400282: Text9
+    400284: Text20
+    400286: Text21
+    400288: Text22
+    400290: Text23
+    400292: Text24
+    400294: Text25
+    400296: Text26
+    400298: Text27
+    400300: Text28
+    400302: Text29
+    400304: Text30
     2100000: Black_font_colour
     2300000: BezierCircle
     2300002: BezierCircle_001
@@ -430,6 +452,17 @@ ModelImporter:
     2300278: Text7
     2300280: Text8
     2300282: Text9
+    2300284: Text20
+    2300286: Text21
+    2300288: Text22
+    2300290: Text23
+    2300292: Text24
+    2300294: Text25
+    2300296: Text26
+    2300298: Text27
+    2300300: Text28
+    2300302: Text29
+    2300304: Text30
     3300000: BezierCircle
     3300002: BezierCircle_001
     3300004: BezierCircle_002
@@ -572,6 +605,17 @@ ModelImporter:
     3300278: Text7
     3300280: Text8
     3300282: Text9
+    3300284: Text20
+    3300286: Text21
+    3300288: Text22
+    3300290: Text23
+    3300292: Text24
+    3300294: Text25
+    3300296: Text26
+    3300298: Text27
+    3300300: Text28
+    3300302: Text29
+    3300304: Text30
     4300000: BezierCircle_005
     4300002: Text_005
     4300004: BezierCircle_004
@@ -713,6 +757,18 @@ ModelImporter:
     4300276: Text4
     4300278: Text3
     4300280: Text2
+    4300282: Circle-radius-1
+    4300284: Text30
+    4300286: Text29
+    4300288: Text28
+    4300290: Text27
+    4300292: Text26
+    4300294: Text25
+    4300296: Text24
+    4300298: Text23
+    4300300: Text22
+    4300302: Text21
+    4300304: Text20
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
