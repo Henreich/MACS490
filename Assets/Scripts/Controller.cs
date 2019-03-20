@@ -9,13 +9,12 @@ public class Controller : MonoBehaviour
     public SteamVR_Action_Single squeezeAction;
     public SteamVR_Action_Vector2 touchpadAction;
 
-    private DataController dataController;
-
     public TextMeshPro text;
     public Transform screen;
     public Camera head;
     public Transform textCollection;
 
+    private DataController dataController;
     private double MINIMUM_FONT_SIZE = 1.0f;
     private double MAXIMUM_FONT_SIZE = 7.0f;
     private double TRIGGER_THRESHOLD = 0.0f;
@@ -24,7 +23,9 @@ public class Controller : MonoBehaviour
 
     private int currentTextShown = 0;
 
+    // Stage - Curved text.
     private int currentVisibleObject = 0;
+    private enum TextWidth { increase, decrease };
     private List<Transform> textList;
 
     // Start is called before the first frame update
@@ -40,13 +41,6 @@ public class Controller : MonoBehaviour
         {
             textList.Add(text);
         }
-        //foreach (Transform radius in textCollection)
-        //{
-        //    foreach (Transform text in radius)
-        //    {
-        //        textList.Add(text);
-        //    }
-        //}
     }
 
     // Update is called once per frame
@@ -58,13 +52,15 @@ public class Controller : MonoBehaviour
         if (touchpadValue.x > 0.0f) // RIGHT
         {
             //text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
-            changeObjectSize(textCollection, true);
+            //Stage - Curved text
+            ChangeObjectSize(textCollection, true);
 
         }
         else if (touchpadValue.x < -0.0f) // LEFT
         {
             //text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
-            changeObjectSize(textCollection, false);
+            //Stage - Curved text
+            ChangeObjectSize(textCollection, false);
 
         }
 
@@ -97,15 +93,8 @@ public class Controller : MonoBehaviour
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
         {
 
-            //print(head.transform.localPosition);
-            //screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
-            if (currentVisibleObject == 0) textList[textList.Count - 1].gameObject.SetActive(false);
-
-            textList[currentVisibleObject].gameObject.SetActive(false);
-            textList[currentVisibleObject + 1].gameObject.SetActive(true);
-            currentVisibleObject++;
-
-            if (currentVisibleObject == textList.Count - 1) currentVisibleObject = 0;
+            print(head.transform.localPosition);
+            screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
         }
 
         /**
@@ -118,19 +107,21 @@ public class Controller : MonoBehaviour
         }
 
         // WIP-DEV - Cycle through game objects
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.U))
         {
-            if (currentVisibleObject == 0) textList[textList.Count - 1].gameObject.SetActive(false);
-
-            textList[currentVisibleObject].gameObject.SetActive(false);
-            textList[currentVisibleObject + 1].gameObject.SetActive(true);
-            currentVisibleObject++;
-
-            if (currentVisibleObject == textList.Count - 1) currentVisibleObject = 0;
+            ChangeVisibleObjectInList(TextWidth.increase);
         }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            ChangeVisibleObjectInList(TextWidth.decrease);
+        }
+
     }
 
-    private void changeObjectSize(Transform obj, bool increase)
+    /*
+     * Change the size of the object in increments.
+     */
+    private void ChangeObjectSize(Transform obj, bool increase)
     {
         float increment = 0.01f;
         if (!increase) increment = -increment;
@@ -139,4 +130,33 @@ public class Controller : MonoBehaviour
         position = new Vector3(position.x + increment, position.y + increment, position.z + increment);
         obj.transform.localScale = position;
     }
+
+    /*
+     * Decides which object in the list of objects should be visible when going up
+     * or down in the list. Only one object should be visible at a time.
+     */
+    private void ChangeVisibleObjectInList(TextWidth action)
+    {
+        switch (action)
+        {
+            case TextWidth.increase:
+                if (currentVisibleObject < textList.Count - 1)
+                {
+                    textList[currentVisibleObject++].gameObject.SetActive(false);
+                    textList[currentVisibleObject].gameObject.SetActive(true);
+                }
+                break;
+            case TextWidth.decrease:
+                if (currentVisibleObject > 0)
+                {
+                    textList[currentVisibleObject--].gameObject.SetActive(false);
+                    textList[currentVisibleObject].gameObject.SetActive(true);
+                }
+                break;
+            default:
+                Debug.LogError("Invalid option provided.");
+                break;
+        }
+    }
+
 }
