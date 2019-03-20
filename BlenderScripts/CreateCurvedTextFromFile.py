@@ -3,16 +3,16 @@ import json
 import os
 from pathlib import Path
 
+# Circle creation
 def createCircle(radius):
-    # Circle creation
     bpy.ops.curve.primitive_bezier_circle_add(radius=radius, location=(0, 0, 0))
     circle=bpy.context.object
     circle.name = "Circle-radius-" + str(radius)
     #circle.hide = True
     return circle
 
+# Text creation
 def createCurvedText(text, textBoxWidth, circleObj):  
-	# Text creation
     # Place the text in the middle of the axis using the textBoxWidth
     # inverted as the text's left borders are at x = 0
     bpy.ops.object.text_add(location=(-textBoxWidth/2, 0, 0))
@@ -62,9 +62,9 @@ def createCurvedText(text, textBoxWidth, circleObj):
 
 # Gets the text to create a mesh out of from the JSON formatted file.
 def getTextFromFile():	
-# File path of the blender file
+    # File path of the blender file
     filepath = bpy.data.filepath
-# File path of the text data file (JSON formatted)
+    # File path of the text data file (JSON formatted)
     jsonFilePath = Path(os.path.dirname(filepath)).parents[0] / "StreamingAssets/text_data.json"
     #print(jsonFilePath)
     
@@ -92,18 +92,6 @@ bpy.ops.object.delete()
 
 data = getTextFromFile()
 
-
 for Text in data['Items']:
     if Text['Id'] == 1:
-#        createCurvedTextsAtDistance(2, 7, Text, createCircle(0.5))
         createCurvedTextsAtDistance(8, 31, Text, createCircle(1))
-#        createCurvedTextsAtDistance(2, 7, Text, createCircle(1.5))
-#        createCurvedTextsAtDistance(2, 7, Text, createCircle(2))
-        
-        
-        #for textBoxWidth in range (2, 8):
-        #    createCurvedText(Text['Text'], 0.5, textBoxWidth * 0.25)
-            
-#for modifier in range(1, 5):
-#	 (radius, textBoxWidth)
-#	createCurvedText(data['Items']['Text'][0], modifier * 0.5, modifier * 0.75)
