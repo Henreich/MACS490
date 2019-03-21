@@ -99,19 +99,19 @@ public class Controller : MonoBehaviour
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
         {
             // temp to control everything inside VR
-            if (experimentStage == -1)
-            {
-                ChangeExperimentStage((int) ExperimentStage.flatScreen);
-            } else
-            {
-                if (experimentStage == (int) ExperimentStage.flatScreen)
-                {
-                    ChangeExperimentStage((int) ExperimentStage.curvedScreen);
-                } else
-                {
-                    ChangeExperimentStage((int) ExperimentStage.flatScreen);
-                }
-            }
+            //if (experimentStage == -1)
+            //{
+            //    ChangeExperimentStage((int) ExperimentStage.flatScreen);
+            //} else
+            //{
+            //    if (experimentStage == (int) ExperimentStage.flatScreen)
+            //    {
+            //        ChangeExperimentStage((int) ExperimentStage.curvedScreen);
+            //    } else
+            //    {
+            //        ChangeExperimentStage((int) ExperimentStage.flatScreen);
+            //    }
+            //}
             //print(head.transform.localPosition);
             //screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
         }
