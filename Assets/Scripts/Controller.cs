@@ -43,6 +43,7 @@ public class Controller : MonoBehaviour
         {
             textList.Add(text);
         }
+        print(textList[0]);
     }
 
     // Update is called once per frame
@@ -134,7 +135,7 @@ public class Controller : MonoBehaviour
         Vector3 position = obj.localPosition;
 
         scale = new Vector3(scale.x + increment, scale.y + increment, scale.z + increment);
-        position = new Vector3(position.x, position.y, position.z - increment);
+        position = new Vector3(position.x, position.y - increment, position.z - increment);
 
         obj.transform.localScale = scale;
         obj.transform.localPosition = position;
