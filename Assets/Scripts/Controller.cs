@@ -43,6 +43,7 @@ public class Controller : MonoBehaviour
         {
             textList.Add(text);
         }
+        currentVisibleObject = (int) textList.Count / 2;
     }
 
     // Update is called once per frame
@@ -127,14 +128,13 @@ public class Controller : MonoBehaviour
      */
     private void ChangeObjectSize(Transform obj, bool increase)
     {
-        float increment = 0.001f;
-        if (!increase) increment = -increment;
+        float increment = (increase) ? 0.001f : -0.001f;
 
         Vector3 scale = obj.localScale;
         Vector3 position = obj.localPosition;
 
         scale = new Vector3(scale.x + increment, scale.y + increment, scale.z + increment);
-        position = new Vector3(position.x, position.y, position.z - increment);
+        position = new Vector3(position.x, position.y, position.z - increment * 2);
 
         obj.transform.localScale = scale;
         obj.transform.localPosition = position;
