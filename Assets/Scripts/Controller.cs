@@ -25,6 +25,9 @@ public class Controller : MonoBehaviour
 
     private int currentTextShown = 0;
 
+    private enum ExperimentStage { flatScreen, curvedScreen };
+    private int experimentStage = -1;
+
     // Stage - Curved text.
     private int currentVisibleObject = 0;
     private enum TextWidth { increase, decrease };
@@ -54,16 +57,14 @@ public class Controller : MonoBehaviour
         // Where the touch pad was triggered
         if (touchpadValue.x > TRIGGER_THRESHOLD_SMOOTH_SCALING) // RIGHT
         {
-            //text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
-            //Stage - Curved text
-            ChangeObjectSize(textContainer, true);
+            if (experimentStage == (int) ExperimentStage.flatScreen)   text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
+            if (experimentStage == (int) ExperimentStage.curvedScreen) ChangeObjectSize(textContainer, true);
 
         }
         else if (touchpadValue.x < -TRIGGER_THRESHOLD_SMOOTH_SCALING) // LEFT
         {
-            //text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
-            //Stage - Curved text
-            ChangeObjectSize(textContainer, false);
+            if (experimentStage == (int) ExperimentStage.flatScreen) text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
+            if (experimentStage == (int) ExperimentStage.curvedScreen) ChangeObjectSize(textContainer, false);
 
         }
 
@@ -72,13 +73,13 @@ public class Controller : MonoBehaviour
             // Where the touch pad was triggered
             if (touchpadValue.y > TRIGGER_THRESHOLD) // UP
             {
-                //screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z + 1.0f);
-                ChangeVisibleObjectInList(TextWidth.increase);
+                if (experimentStage == (int) ExperimentStage.flatScreen) screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z + 1.0f);
+                if (experimentStage == (int) ExperimentStage.curvedScreen) ChangeVisibleObjectInList(TextWidth.increase);
             }
             else if (touchpadValue.y < -TRIGGER_THRESHOLD) // DOWN
             {
-                //screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z - 1.0f);
-                ChangeVisibleObjectInList(TextWidth.decrease);
+                if (experimentStage == (int) ExperimentStage.flatScreen) screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z - 1.0f);
+                if (experimentStage == (int) ExperimentStage.curvedScreen) ChangeVisibleObjectInList(TextWidth.decrease);
             }
 
         }
@@ -97,9 +98,22 @@ public class Controller : MonoBehaviour
          */
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
         {
-
-            print(head.transform.localPosition);
-            screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
+            // temp to control everything inside VR
+            if (experimentStage == -1)
+            {
+                ChangeExperimentStage((int) ExperimentStage.flatScreen);
+            } else
+            {
+                if (experimentStage == (int) ExperimentStage.flatScreen)
+                {
+                    ChangeExperimentStage((int) ExperimentStage.curvedScreen);
+                } else
+                {
+                    ChangeExperimentStage((int) ExperimentStage.flatScreen);
+                }
+            }
+            //print(head.transform.localPosition);
+            //screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
         }
 
         /**
@@ -111,14 +125,14 @@ public class Controller : MonoBehaviour
             text.text = dataController.AllTextData[currentTextShown++].Text;
         }
 
-        // WIP-DEV - Cycle through game objects
-        if (Input.GetKeyDown(KeyCode.U))
+        // Change between the experiment stage, either reading from a flat or a curved screen.
+        if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-            ChangeVisibleObjectInList(TextWidth.increase);
+            ChangeExperimentStage((int) ExperimentStage.flatScreen);
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.Keypad2))
         {
-            ChangeVisibleObjectInList(TextWidth.decrease);
+            ChangeExperimentStage((int) ExperimentStage.curvedScreen);
         }
 
     }
@@ -168,4 +182,13 @@ public class Controller : MonoBehaviour
         }
     }
 
+    private void ChangeExperimentStage(int stageNumber)
+    {
+        experimentStage = stageNumber;
+        bool isStageOne = experimentStage == 0 ? true : false;
+
+        screen.gameObject.SetActive(isStageOne);
+        textContainer.gameObject.SetActive(!isStageOne);
+        print("Experiment stage: " + experimentStage);
+    }
 }
