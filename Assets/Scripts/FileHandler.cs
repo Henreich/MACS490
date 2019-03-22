@@ -5,34 +5,52 @@ using UnityEngine;
 
 public class FileHandler : MonoBehaviour
 {
-    private string path = "Assets/Resources/";
+    private string folderPath = "ExperimentData/";
     private string fileName = "participant";
-    private int lastParticipantId = 0;
     private readonly string suffix = ".txt";
 
     void Start()
     {
-        WriteToFile("Participant: " + lastParticipantId + "\n");
     }
 
-    private void WriteToFile(string text)
+    public void WriteToFile(int id, string text)
     {
-        string filePath = path + fileName + lastParticipantId + suffix;
+        string filePath = folderPath + fileName + id + suffix;
 
-        if (!File.Exists(filePath))
+        if (File.Exists(filePath))
         {
-            StreamWriter sw = new StreamWriter(filePath, true);
-            sw.WriteLine(text);
-            sw.Close();   
-        } else
+            print(filePath);
+            using (var append = File.AppendText(filePath))
+            {
+                append.WriteLine(text);
+                append.Flush();
+                append.Close();
+            }
+
+        }
+        else // New participant, create new file with identifier on first line.
         {
-            lastParticipantId++;
-            WriteToFile("Participant: " + lastParticipantId + "\n");
+            using (var writer = new StreamWriter(filePath))
+            {
+                writer.WriteLine("Participant: " + id);
+                writer.WriteLine(text);
+                writer.Flush();
+                writer.Close();
+            }
         }
     }
-
-    private void FileIsComplete()
+    /*
+     * Utilities for formatting.
+     */
+    public string FormatForFile(float x, float y, float z)
     {
-        lastParticipantId++;
+        string tab = "\t";
+        return x + tab + y + tab + z;
+    }
+
+    public string FormatForFile(string x, string y, string z)
+    {
+        string tab = "\t";
+        return x + tab + y + tab + z;
     }
 }

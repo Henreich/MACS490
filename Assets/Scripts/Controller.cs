@@ -33,6 +33,8 @@ public class Controller : MonoBehaviour
     private enum TextWidth { increase, decrease };
     private List<Transform> textList;
 
+    private int participantId = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,6 +100,30 @@ public class Controller : MonoBehaviour
          */
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
         {
+            Vector3 headPos = head.transform.localPosition;
+
+            Vector3 flatScreenPos = screen.transform.localPosition;
+            Vector3 flatScreenScale = screen.transform.localScale;
+
+            Vector3 curvedScreenScale = textContainer.transform.localScale;
+
+
+
+            FileHandler fh = new FileHandler();
+            fh.WriteToFile(participantId, "Transform_flat_screen");
+            fh.WriteToFile(participantId, fh.FormatForFile("X", "Y", "Z"));
+            fh.WriteToFile(participantId, fh.FormatForFile(flatScreenPos.x, flatScreenPos.y, flatScreenPos.z));
+
+            // Camera position
+            fh.WriteToFile(participantId, "Camera head");
+            fh.WriteToFile(participantId, fh.FormatForFile("X", "Y", "Z"));
+            fh.WriteToFile(participantId, fh.FormatForFile(headPos.x, headPos.y, headPos.z));
+
+            participantId++;
+            //fileHandler.WriteToFile(  experimentStage);
+            //fileHandler.WriteToFile("Experiment_stage: " + experimentStage);
+            //fileHandler.WriteToFile("Experiment_stage: " + experimentStage);
+
             // temp to control everything inside VR
             //if (experimentStage == -1)
             //{
