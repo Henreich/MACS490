@@ -16,8 +16,8 @@ public class Controller : MonoBehaviour
     public Transform textCollection;
 
     private DataController dataController;
-    private readonly double MINIMUM_FONT_SIZE = 1.0f;
-    private readonly double MAXIMUM_FONT_SIZE = 7.0f;
+    //private readonly double MINIMUM_FONT_SIZE = 1.0f;
+    //private readonly double MAXIMUM_FONT_SIZE = 7.0f;
     private readonly double TRIGGER_THRESHOLD = 0.0f;
     private readonly double TRIGGER_THRESHOLD_SMOOTH_SCALING = 0.3f;
     private readonly float TEXT_SIZING_INCREMENTS = 0.0001f;
@@ -34,12 +34,16 @@ public class Controller : MonoBehaviour
     private List<Transform> textList;
 
     private int participantId = 0;
+    FileHandler fh;
+    private ExperimentData participantData;
 
     // Start is called before the first frame update
     void Start()
     {
         dataController = ScriptableObject.CreateInstance<DataController>();
-        
+        participantData = new ExperimentData();
+        fh = new FileHandler();
+
         /*
          * Set up the list of text object transforms
          */
@@ -98,48 +102,58 @@ public class Controller : MonoBehaviour
          * Set "screen" height to match the height of the user's head.
          * TODO Maybe position it  a bit lower than the user's head. Example 6 degrees down (Google I/0 17)
          */
-        if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any))
+        if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any) || Input.GetKeyDown(KeyCode.S))
         {
-            Vector3 headPos = head.transform.localPosition;
+            participantData.participantId = participantId;
 
-            Vector3 flatScreenPos = screen.transform.localPosition;
-            Vector3 flatScreenScale = screen.transform.localScale;
+            if (experimentStage == (int) ExperimentStage.flatScreen)
+            {
+                participantData.flatScreenParticipantPos = head.transform.localPosition;
+                participantData.flatScreenPos = screen.transform.localPosition;
+                participantData.flatScreenScale = screen.transform.localScale;
+                participantData.flatScreenTextSizeComfortable = text.fontSize;
+                participantData.currentTextShown = currentTextShown;
+            }
 
-            Vector3 curvedScreenScale = textContainer.transform.localScale;
 
+            if (experimentStage == (int) ExperimentStage.curvedScreen)
+            {
+                participantData.curvedScreenPos = textCollection.transform.localPosition;
+                participantData.curvedScreenScale = textCollection.transform.localScale;
+                participantData.currentlyVisibleObject = currentVisibleObject;
+            }
+            //participantId++;
+            //filehandler fh = new filehandler();
+            //fh.writetofile(participantid, "transform_flat_screen");
+            //fh.writetofile(participantid, fh.formatforfile("x", "y", "z"));
+            //fh.writetofile(participantid, fh.formatforfile(flatscreenpos.x, flatscreenpos.y, flatscreenpos.z));
 
+                //// camera position
+                //fh.writetofile(participantid, "camera head");
+                //fh.writetofile(participantid, fh.formatforfile("x", "y", "z"));
+                //fh.writetofile(participantid, fh.formatforfile(headpos.x, headpos.y, headpos.z));
 
-            FileHandler fh = new FileHandler();
-            fh.WriteToFile(participantId, "Transform_flat_screen");
-            fh.WriteToFile(participantId, fh.FormatForFile("X", "Y", "Z"));
-            fh.WriteToFile(participantId, fh.FormatForFile(flatScreenPos.x, flatScreenPos.y, flatScreenPos.z));
+                //participantid++;
+                //filehandler.writetofile(  experimentstage);
+                //filehandler.writetofile("experiment_stage: " + experimentstage);
+                //filehandler.writetofile("experiment_stage: " + experimentstage);
 
-            // Camera position
-            fh.WriteToFile(participantId, "Camera head");
-            fh.WriteToFile(participantId, fh.FormatForFile("X", "Y", "Z"));
-            fh.WriteToFile(participantId, fh.FormatForFile(headPos.x, headPos.y, headPos.z));
-
-            participantId++;
-            //fileHandler.WriteToFile(  experimentStage);
-            //fileHandler.WriteToFile("Experiment_stage: " + experimentStage);
-            //fileHandler.WriteToFile("Experiment_stage: " + experimentStage);
-
-            // temp to control everything inside VR
-            //if (experimentStage == -1)
-            //{
-            //    ChangeExperimentStage((int) ExperimentStage.flatScreen);
-            //} else
-            //{
-            //    if (experimentStage == (int) ExperimentStage.flatScreen)
-            //    {
-            //        ChangeExperimentStage((int) ExperimentStage.curvedScreen);
-            //    } else
-            //    {
-            //        ChangeExperimentStage((int) ExperimentStage.flatScreen);
-            //    }
-            //}
-            //print(head.transform.localPosition);
-            //screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
+                // temp to control everything inside VR
+                //if (experimentStage == -1)
+                //{
+                //    ChangeExperimentStage((int) ExperimentStage.flatScreen);
+                //} else
+                //{
+                //    if (experimentStage == (int) ExperimentStage.flatScreen)
+                //    {
+                //        ChangeExperimentStage((int) ExperimentStage.curvedScreen);
+                //    } else
+                //    {
+                //        ChangeExperimentStage((int) ExperimentStage.flatScreen);
+                //    }
+                //}
+                //print(head.transform.localPosition);
+                //screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
         }
 
         /**
@@ -160,6 +174,11 @@ public class Controller : MonoBehaviour
         {
             ChangeExperimentStage((int) ExperimentStage.curvedScreen);
         }
+        if (Input.GetKeyDown(KeyCode.Keypad5)) // TEMPORARY
+        {
+            fh.WriteToFile(participantData);
+        }
+        
 
     }
 
