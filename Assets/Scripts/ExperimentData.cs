@@ -10,41 +10,40 @@ public class ExperimentData
 {
     public int participantId { get; set; }
 
-    public Vector3 flatScreenParticipantPos { get; set; }
-    public Vector3 flatScreenPos { get; set; }
-    public Vector3 flatScreenScale { get; set; }
+    // Flat screen
+    // Comfortable text size
+    public Vector3 flatScreenParticipantPosComfortable { get; set; }
+    public Vector3 flatScreenPosComfortable { get; set; }
+    public Vector3 flatScreenScaleComfortable { get; set; }
     public float flatScreenTextSizeComfortable { get; set; }
+    public float flatScreenDistanceToScreenComfortable { get; set; }
+    public int currentTextShownComfortable { get; set; }
+
+    // Minimum text size
+    public Vector3 flatScreenParticipantPosMinimum { get; set; }
+    public Vector3 flatScreenPosMinimum { get; set; }
+    public Vector3 flatScreenScaleMinimum { get; set; }
     public float flatScreenTextSizeMinimum { get; set; }
-    public int currentTextShown { get; set; }
+    public float flatScreenDistanceToScreenMinimum { get; set; }
+    public int currentTextShownMinimum { get; set; }
 
-    //public float flatScreenTextSizeComfortableDistance2 { get; set; }
-    //public float flatScreenTextSizeMinimumDistance2 { get; set; }
+    // Curved screen
+    // Comfortable text size
+    public Vector3 curvedScreenParticipantPosComfortable { get; set; }
+    public Vector3 curvedScreenPosComfortable { get; set; }
+    public Vector3 curvedScreenScaleComfortable { get; set; }
+    public float curvedScreenDistanceToScreenComfortable { get; set; }
+    public float currentlyVisibleObjectComfortable { get; set; }
 
-    public Vector3 curvedScreenPos { get; set; }
-    public Vector3 curvedScreenScale { get; set; }
-    public float currentlyVisibleObject { get; set; }
+    // Minimum text size
+    public Vector3 curvedScreenParticipantPosMinimum { get; set; }
+    public Vector3 curvedScreenPosMinimum { get; set; }
+    public Vector3 curvedScreenScaleMinimum { get; set; }
+    public float curvedScreenDistanceToScreenMinimum { get; set; }
+    public float currentlyVisibleObjectMinimum { get; set; }
 }
 
 
 
-
-
-
-
-
-
-//public float headPosX { get; set; }
-//public float headPosY { get; set; } // Needed? Could be tracked back to the participant.
-//public float headPosZ { get; set; }>
-//public float flatScreenPosX { get; set; }
-//public float flatScreenPosY { get; set; }
-//public float flatScreenPosZ { get; set; }
-//public float flatScreenScaleX { get; set; }
-//public float flatScreenScaleY { get; set; }
-//public float flatScreenScaleZ { get; set; }
-//public float curvedScreenPosX { get; set; }
-//public float curvedScreenPosY { get; set; }
-//public float curvedScreenPosZ { get; set; }
-//public float curvedScreenScaleX { get; set; }
-//public float curvedScreenScaleY { get; set; }
-//public float curvedScreenScaleZ { get; set; }
+//public float flatScreenTextSizeComfortableDistance2 { get; set; }
+//public float flatScreenTextSizeMinimumDistance2 { get; set; }
