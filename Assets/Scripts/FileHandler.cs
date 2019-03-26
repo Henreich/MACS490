@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class FileHandler : MonoBehaviour
+public class FileHandler : ScriptableObject
 {
     private string folderPath = "ExperimentData/";
-    private string fileName = "participants";
+    private string fileName = "participant_data";
     private readonly string suffix = ".txt";
 
     void Start()
@@ -19,9 +19,9 @@ public class FileHandler : MonoBehaviour
 
         if (File.Exists(filePath))
         {
-            print(filePath);
             using (var append = File.AppendText(filePath))
             {
+                Debug.Log(string.Format("Appending to file: {0}", filePath));
                 string csvFormattedOutput = string.Format(
                     "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}",
                     data.participantId,                 // 0
@@ -47,57 +47,47 @@ public class FileHandler : MonoBehaviour
         {
             using (var writer = new StreamWriter(filePath))
             {
+                Debug.Log(string.Format("Creating new file: {0}", filePath));
+                //string col1  = "participantId";
+                //string col2  = "flatScreenParticipantPosX";
+                //string col3  = "flatScreenParticipantPosY";
+                //string col4  = "flatScreenParticipantPosZ";
+                //string col5  = "flatScreenPosX";
+                //string col6  = "flatScreenPosY";
+                //string col7  = "flatScreenPosZ";
+                //string col8  = "flatScreenScaleX";
+                //string col9  = "flatScreenScaleY";
+                //string col10 = "flatScreenScaleZ";
+                //string col11 = "flatScreenTextSizeComfortable";
+                //string col12 = "flatScreenCalculatedDistanceComfortable";
+                //string col13 = "flatScreenTextSizeMinimum";
+                //string col14 = "flatScreenCalculatedDistanceMinimum";
+
                 string col1  = "participantId";
-                string col2  = "flatScreenParticipantPosX";
-                string col3  = "flatScreenParticipantPosY";
-                string col4  = "flatScreenParticipantPosZ";
-                string col5  = "flatScreenPosX";
-                string col6  = "flatScreenPosY";
-                string col7  = "flatScreenPosZ";
-                string col8  = "flatScreenScaleX";
-                string col9  = "flatScreenScaleY";
-                string col10 = "flatScreenScaleZ";
-                string col11 = "flatScreenTextSizeComfortable";
-                string col12 = "flatScreenCalculatedDistanceComfortable";
-                string col13 = "flatScreenTextSizeMinimum";
-                string col14 = "flatScreenCalculatedDistanceMinimum";
+                string col2  = "experimentId";
+                string col3  = "screenPosX";
+                string col4  = "screenPosY";
+                string col5  = "screenPosZ";
+                string col6  = "screenScaleX";
+                string col7  = "screenScaleY";
+                string col8  = "screenScaleZ";
+                string col9  = "textSize";
+                string col10 = "displayedTextIndex";
+                string col11 = "calculatedDistanceToScreen";
 
                 string csvFormattedOutput = string.Format(
-                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", 
-                    col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12
+                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
+                    col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11
                 );
+                //string csvFormattedOutput = string.Format(
+                //    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", 
+                //    col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12
+                //);
 
                 writer.WriteLine(csvFormattedOutput);
                 writer.Flush();
                 writer.Close();
-                WriteToFile(data);
-            }
-        }
-    }
-
-    public void WriteToFile(int id, string text)
-    {
-        string filePath = folderPath + fileName + id + suffix;
-
-        if (File.Exists(filePath))
-        {
-            print(filePath);
-            using (var append = File.AppendText(filePath))
-            {
-                append.WriteLine(text);
-                append.Flush();
-                append.Close();
-            }
-
-        }
-        else // New participant, create new file with identifier on first line.
-        {
-            using (var writer = new StreamWriter(filePath))
-            {
-                writer.WriteLine("Participant: " + id);
-                writer.WriteLine(text);
-                writer.Flush();
-                writer.Close();
+                //WriteToFile(data);
             }
         }
     }
@@ -122,18 +112,3 @@ public class FileHandler : MonoBehaviour
         return data.x + tab + data.y + tab + data.z;
     }
 }
-
-
-//FileHandler fh = new FileHandler();
-//fh.WriteToFile(participantId, "Transform_flat_screen");
-//fh.WriteToFile(participantId, fh.FormatForFile("X", "Y", "Z"));
-//fh.WriteToFile(participantId, fh.FormatForFile(flatScreenPos.x, flatScreenPos.y, flatScreenPos.z));
-
-//// Camera position
-//fh.WriteToFile(participantId, "Camera head");
-//fh.WriteToFile(participantId, fh.FormatForFile("X", "Y", "Z"));
-//fh.WriteToFile(participantId, fh.FormatForFile(headPos.x, headPos.y, headPos.z));
-
-//participantId++;
-//fileHandler.WriteToFile(  experimentStage);
-//fileHandler.WriteToFile("Experiment_stage: " + experimentStage);
