@@ -26,6 +26,12 @@ public class Controller : MonoBehaviour
     private int currentTextShown = 0;
 
     private enum ExperimentStage { flatScreen, curvedScreen };
+    private enum ExperimentStage2 {
+        flatScreenComfortable,
+        flatScreenMinimum,
+        curvedScreenComfortable,
+        curvedScreenMinimum
+    };
     private int experimentStage = -1;
 
     // Stage - Curved text.
@@ -42,7 +48,7 @@ public class Controller : MonoBehaviour
     {
         dataController = ScriptableObject.CreateInstance<DataController>();
         participantData = new ExperimentData();
-        fh = new FileHandler();
+        fh = ScriptableObject.CreateInstance<FileHandler>();
 
         /*
          * Set up the list of text object transforms
@@ -108,50 +114,21 @@ public class Controller : MonoBehaviour
 
             if (experimentStage == (int) ExperimentStage.flatScreen)
             {
-                participantData.flatScreenParticipantPos = head.transform.localPosition;
-                participantData.flatScreenPos = screen.transform.localPosition;
-                participantData.flatScreenScale = screen.transform.localScale;
+                participantData.flatScreenParticipantPosComfortable = head.transform.localPosition;
+                participantData.flatScreenPosComfortable = screen.transform.localPosition;
+                participantData.flatScreenScaleComfortable = screen.transform.localScale;
                 participantData.flatScreenTextSizeComfortable = text.fontSize;
-                participantData.currentTextShown = currentTextShown;
+                participantData.currentTextShownComfortable = currentTextShown;
+                fh.WriteToFile(participantData);
             }
 
 
             if (experimentStage == (int) ExperimentStage.curvedScreen)
             {
-                participantData.curvedScreenPos = textCollection.transform.localPosition;
-                participantData.curvedScreenScale = textCollection.transform.localScale;
-                participantData.currentlyVisibleObject = currentVisibleObject;
+                participantData.curvedScreenPosComfortable = textCollection.transform.localPosition;
+                participantData.curvedScreenScaleComfortable = textCollection.transform.localScale;
+                participantData.currentlyVisibleObjectComfortable = currentVisibleObject;
             }
-            //participantId++;
-            //filehandler fh = new filehandler();
-            //fh.writetofile(participantid, "transform_flat_screen");
-            //fh.writetofile(participantid, fh.formatforfile("x", "y", "z"));
-            //fh.writetofile(participantid, fh.formatforfile(flatscreenpos.x, flatscreenpos.y, flatscreenpos.z));
-
-                //// camera position
-                //fh.writetofile(participantid, "camera head");
-                //fh.writetofile(participantid, fh.formatforfile("x", "y", "z"));
-                //fh.writetofile(participantid, fh.formatforfile(headpos.x, headpos.y, headpos.z));
-
-                //participantid++;
-                //filehandler.writetofile(  experimentstage);
-                //filehandler.writetofile("experiment_stage: " + experimentstage);
-                //filehandler.writetofile("experiment_stage: " + experimentstage);
-
-                // temp to control everything inside VR
-                //if (experimentStage == -1)
-                //{
-                //    ChangeExperimentStage((int) ExperimentStage.flatScreen);
-                //} else
-                //{
-                //    if (experimentStage == (int) ExperimentStage.flatScreen)
-                //    {
-                //        ChangeExperimentStage((int) ExperimentStage.curvedScreen);
-                //    } else
-                //    {
-                //        ChangeExperimentStage((int) ExperimentStage.flatScreen);
-                //    }
-                //}
                 //print(head.transform.localPosition);
                 //screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
         }
