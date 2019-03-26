@@ -34,7 +34,7 @@ public class Controller : MonoBehaviour
     private List<Transform> textList;
 
     private int participantId = 0;
-    FileHandler fh;
+    private FileHandler fileHandler;
     private ExperimentData participantData;
 
     // Start is called before the first frame update
@@ -42,7 +42,7 @@ public class Controller : MonoBehaviour
     {
         dataController = ScriptableObject.CreateInstance<DataController>();
         participantData = new ExperimentData();
-        fh = new FileHandler();
+        fileHandler = ScriptableObject.CreateInstance<FileHandler>();
 
         /*
          * Set up the list of text object transforms
@@ -104,6 +104,7 @@ public class Controller : MonoBehaviour
          */
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any) || Input.GetKeyDown(KeyCode.S))
         {
+            print("Saving data.");
             participantData.participantId = participantId;
 
             if (experimentStage == (int) ExperimentStage.flatScreen)
@@ -113,6 +114,7 @@ public class Controller : MonoBehaviour
                 participantData.flatScreenScale = screen.transform.localScale;
                 participantData.flatScreenTextSizeComfortable = text.fontSize;
                 participantData.currentTextShown = currentTextShown;
+                fileHandler.WriteToFile(participantData);
             }
 
 
@@ -176,7 +178,7 @@ public class Controller : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Keypad5)) // TEMPORARY
         {
-            fh.WriteToFile(participantData);
+            fileHandler.WriteToFile(participantData);
         }
         
 
