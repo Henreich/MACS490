@@ -5,6 +5,9 @@ using UnityEngine;
 
 /**
  * Class to hold experiment data
+ * TODO Reduce the amount of information stored by only storing
+ * relevant values? E.g. calculated distances instead of the
+ * user position AND the screen position.
  */
 public class ExperimentData
 {
@@ -42,8 +45,3 @@ public class ExperimentData
     public float curvedScreenDistanceToScreenMinimum { get; set; }
     public float currentlyVisibleObjectMinimum { get; set; }
 }
-
-
-
-//public float flatScreenTextSizeComfortableDistance2 { get; set; }
-//public float flatScreenTextSizeMinimumDistance2 { get; set; }
