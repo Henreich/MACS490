@@ -10,10 +10,10 @@ public class Controller : MonoBehaviour
     public SteamVR_Action_Vector2 touchpadAction;
 
     public TextMeshPro text;
-    public Transform screen;
+    public Transform flatScreen;
     public Camera head;
     public Transform textContainer;
-    public Transform textCollection;
+    public Transform curvedTextMeshColletion;
 
     private DataController dataController;
     //private readonly double MINIMUM_FONT_SIZE = 1.0f;
@@ -27,6 +27,7 @@ public class Controller : MonoBehaviour
 
     private enum ScreenType { flatScreen, curvedScreen };
     private int currentScreenType = -1;
+
     private enum ExperimentStage {
         flatScreenComfortable,
         flatScreenMinimum,
@@ -38,7 +39,7 @@ public class Controller : MonoBehaviour
     // Stage - Curved text.
     private int currentVisibleObject = 0;
     private enum TextWidth { increase, decrease };
-    private List<Transform> textList;
+    private List<Transform> textMeshList;
 
     private int participantId = 0;
     private FileHandler fh;
@@ -54,12 +55,12 @@ public class Controller : MonoBehaviour
         /*
          * Set up the list of text object transforms
          */
-        textList = new List<Transform>();
-        foreach (Transform text in textCollection)
+        textMeshList = new List<Transform>();
+        foreach (Transform text in curvedTextMeshColletion)
         {
-            textList.Add(text);
+            textMeshList.Add(text);
         }
-        currentVisibleObject = (int) textList.Count / 2;
+        currentVisibleObject = (int) textMeshList.Count / 2;
     }
 
     // Update is called once per frame
@@ -86,12 +87,12 @@ public class Controller : MonoBehaviour
             // Where the touch pad was triggered
             if (touchpadValue.y > TRIGGER_THRESHOLD) // UP
             {
-                if (currentScreenType == (int) ScreenType.flatScreen) screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z + 1.0f);
+                if (currentScreenType == (int) ScreenType.flatScreen) flatScreen.localPosition = new Vector3(flatScreen.localPosition.x, flatScreen.localPosition.y, flatScreen.localPosition.z + 1.0f);
                 if (currentScreenType == (int) ScreenType.curvedScreen) ChangeVisibleObjectInList(TextWidth.increase);
             }
             else if (touchpadValue.y < -TRIGGER_THRESHOLD) // DOWN
             {
-                if (currentScreenType == (int) ScreenType.flatScreen) screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z - 1.0f);
+                if (currentScreenType == (int) ScreenType.flatScreen) flatScreen.localPosition = new Vector3(flatScreen.localPosition.x, flatScreen.localPosition.y, flatScreen.localPosition.z - 1.0f);
                 if (currentScreenType == (int) ScreenType.curvedScreen) ChangeVisibleObjectInList(TextWidth.decrease);
             }
 
@@ -106,7 +107,7 @@ public class Controller : MonoBehaviour
 
 
         /**
-         * Set "screen" height to match the height of the user's head.
+         * Set "flatScreen" height to match the height of the user's head.
          * TODO Maybe position it  a bit lower than the user's head. Example 6 degrees down (Google I/0 17)
          */
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any) || Input.GetKeyDown(KeyCode.S))
@@ -116,8 +117,8 @@ public class Controller : MonoBehaviour
             if (currentExperimentStage == (int) ExperimentStage.flatScreenComfortable)
             {
                 participantData.flatScreenParticipantPosComfortable = head.transform.localPosition;
-                participantData.flatScreenPosComfortable = screen.transform.localPosition;
-                participantData.flatScreenScaleComfortable = screen.transform.localScale;
+                participantData.flatScreenPosComfortable = flatScreen.transform.localPosition;
+                participantData.flatScreenScaleComfortable = flatScreen.transform.localScale;
                 participantData.flatScreenTextSizeComfortable = text.fontSize;
                 participantData.flatScreenDistanceToScreenComfortable = participantData.flatScreenPosComfortable.z - Mathf.Abs(participantData.flatScreenParticipantPosComfortable.z);
                 participantData.currentTextShownComfortable = currentTextShown;
@@ -125,8 +126,8 @@ public class Controller : MonoBehaviour
             else if (currentExperimentStage == (int) ExperimentStage.flatScreenMinimum)
             {
                 participantData.flatScreenParticipantPosMinimum = head.transform.localPosition;
-                participantData.flatScreenPosMinimum = screen.transform.localPosition;
-                participantData.flatScreenScaleMinimum = screen.transform.localScale;
+                participantData.flatScreenPosMinimum = flatScreen.transform.localPosition;
+                participantData.flatScreenScaleMinimum = flatScreen.transform.localScale;
                 participantData.flatScreenTextSizeMinimum = text.fontSize;
                 participantData.flatScreenDistanceToScreenMinimum = participantData.flatScreenPosMinimum.z - Mathf.Abs(participantData.flatScreenParticipantPosMinimum.z);
                 participantData.currentTextShownMinimum = currentTextShown;
@@ -134,16 +135,16 @@ public class Controller : MonoBehaviour
             else if (currentExperimentStage == (int) ExperimentStage.curvedScreenComfortable)
             {
                 participantData.curvedScreenParticipantPosComfortable = head.transform.localPosition;
-                participantData.curvedScreenPosComfortable = textCollection.transform.localPosition;
-                participantData.curvedScreenScaleComfortable = textCollection.transform.localScale;
+                participantData.curvedScreenPosComfortable = curvedTextMeshColletion.transform.localPosition;
+                participantData.curvedScreenScaleComfortable = curvedTextMeshColletion.transform.localScale;
                 participantData.curvedScreenDistanceToScreenComfortable = participantData.curvedScreenPosComfortable.z - Mathf.Abs(participantData.curvedScreenParticipantPosComfortable.z);
                 participantData.currentlyVisibleObjectComfortable = currentVisibleObject;
             }
             else if (currentExperimentStage == (int) ExperimentStage.curvedScreenMinimum)
             {
                 participantData.curvedScreenParticipantPosMinimum = head.transform.localPosition;
-                participantData.curvedScreenPosMinimum = textCollection.transform.localPosition;
-                participantData.curvedScreenScaleMinimum = textCollection.transform.localScale;
+                participantData.curvedScreenPosMinimum = curvedTextMeshColletion.transform.localPosition;
+                participantData.curvedScreenScaleMinimum = curvedTextMeshColletion.transform.localScale;
                 participantData.curvedScreenDistanceToScreenMinimum = participantData.curvedScreenPosMinimum.z - Mathf.Abs(participantData.curvedScreenParticipantPosMinimum.z);
                 participantData.currentlyVisibleObjectMinimum = currentVisibleObject;
             }
@@ -167,11 +168,13 @@ public class Controller : MonoBehaviour
             print(string.Format("ScreenType: {0}", currentScreenType));
         }
         /*
-         * Increment currentExperimentStage
+         * Increment currentExperimentStage and make sure the screentype changed accordingly.
          */
         if (Input.GetKeyDown(KeyCode.I))
         {
             currentExperimentStage++;
+            if (currentExperimentStage == (int) ExperimentStage.flatScreenComfortable) ChangeVisibleScreen(ScreenType.flatScreen);
+            if (currentExperimentStage == (int) ExperimentStage.curvedScreenComfortable) ChangeVisibleScreen(ScreenType.curvedScreen);
             print(string.Format("Changing to experiment stage: {0}", currentExperimentStage));
         }
 
@@ -182,18 +185,6 @@ public class Controller : MonoBehaviour
         {
             if (currentTextShown == dataController.AllTextData.Length) currentTextShown = 0;
             text.text = dataController.AllTextData[currentTextShown++].Text;
-        }
-        // Change between the screentype, either reading from a flat or a curved screen.
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-            ChangeVisibleScreen(ScreenType.flatScreen);
-            currentExperimentStage = 0;
-            currentScreenType = (int) ScreenType.flatScreen;
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
-            ChangeVisibleScreen(ScreenType.curvedScreen);
-            currentScreenType = (int) ScreenType.curvedScreen;
         }
     }
 
@@ -223,17 +214,17 @@ public class Controller : MonoBehaviour
         switch (action)
         {
             case TextWidth.increase:
-                if (currentVisibleObject < textList.Count - 1)
+                if (currentVisibleObject < textMeshList.Count - 1)
                 {
-                    textList[currentVisibleObject++].gameObject.SetActive(false);
-                    textList[currentVisibleObject].gameObject.SetActive(true);
+                    textMeshList[currentVisibleObject++].gameObject.SetActive(false);
+                    textMeshList[currentVisibleObject].gameObject.SetActive(true);
                 }
                 break;
             case TextWidth.decrease:
                 if (currentVisibleObject > 0)
                 {
-                    textList[currentVisibleObject--].gameObject.SetActive(false);
-                    textList[currentVisibleObject].gameObject.SetActive(true);
+                    textMeshList[currentVisibleObject--].gameObject.SetActive(false);
+                    textMeshList[currentVisibleObject].gameObject.SetActive(true);
                 }
                 break;
             default:
@@ -243,13 +234,15 @@ public class Controller : MonoBehaviour
     }
 
     /*
-     * Decide which screen should be displayed.
+     * Decide which flatScreen should be displayed.
      */
     private void ChangeVisibleScreen(ScreenType screenType)
     { 
         bool displayFlatScreen = screenType == ScreenType.flatScreen ? true : false;
 
-        screen.gameObject.SetActive(displayFlatScreen);
+        currentScreenType = (int) screenType;
+
+        flatScreen.gameObject.SetActive(displayFlatScreen);
         textContainer.gameObject.SetActive(!displayFlatScreen);
     }
 }
