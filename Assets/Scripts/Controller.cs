@@ -15,6 +15,8 @@ public class Controller : MonoBehaviour
     public Transform textContainer;
     public Transform curvedTextMeshColletion;
 
+    public TMP_CharacterInfo characterInfo;
+
     private DataController dataController;
     //private readonly double MINIMUM_FONT_SIZE = 1.0f;
     //private readonly double MAXIMUM_FONT_SIZE = 7.0f;
@@ -164,9 +166,48 @@ public class Controller : MonoBehaviour
          */
         if (Input.GetKeyDown(KeyCode.P))
         {
-            print(string.Format("ExperimentStage: {0}", currentExperimentStage));
-            print(string.Format("ScreenType: {0}", currentScreenType));
+            text.ForceMeshUpdate(true);
+
+
+            // Identical.
+            //print(text.textInfo.lineInfo[0].baseline);
+            //print(text.textInfo.characterInfo[0].baseLine);
+            print(text.renderedHeight); // 1.033352
+
+
+            float total = 0;
+            for (int i = 0; i < text.textInfo.lineCount; i++)
+            {
+                print(string.Format("{0}: {1}", i,text.textInfo.lineInfo[i].lineHeight));
+                total += text.textInfo.lineInfo[i].lineHeight;
+            }
+
+            print(total); //1.035
+
+
+
+            //string infoToFile = "";
+            //for (int i = 0; i < text.text.Length; i++)
+            //{
+            //    TMP_CharacterInfo characterInfo = text.GetTextInfo(text.text).characterInfo[i];
+
+
+            //    print(string.Format("{0} - Base line: {1}, lineNumber: {2}, Scale: {3}, Point size: {4}, Vertex index: {5}",
+            //         characterInfo.character, characterInfo.baseLine, characterInfo.lineNumber, characterInfo.scale, characterInfo.pointSize, characterInfo.vertexIndex
+            //    ));
+            //    infoToFile += string.Format("{0} - Base line: {1}, lineNumber: {2}, Scale: {3}, Point size: {4}, Vertex index: {5}",
+            //         characterInfo.character, characterInfo.baseLine, characterInfo.lineNumber, characterInfo.scale, characterInfo.pointSize, characterInfo.vertexIndex);
+            //    infoToFile += "\n";
+
+            //}
+            //fh.WriteToFile(infoToFile);
+            //print(text.bounds);
+
+            //print("word count:" + text.GetTextInfo(text.text).wordCount);
+            //print("lineHeight:" + text.GetTextInfo(text.text).lineInfo[0].lineHeight);
         }
+
+
         /*
          * Increment currentExperimentStage and make sure the screentype changed accordingly.
          */
