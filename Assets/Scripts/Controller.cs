@@ -25,14 +25,15 @@ public class Controller : MonoBehaviour
 
     private int currentTextShown = 0;
 
-    private enum ExperimentStage { flatScreen, curvedScreen };
-    private enum ExperimentStage2 {
+    private enum ScreenType { flatScreen, curvedScreen };
+    private int currentScreenType = -1;
+    private enum ExperimentStage {
         flatScreenComfortable,
         flatScreenMinimum,
         curvedScreenComfortable,
         curvedScreenMinimum
     };
-    private int experimentStage = -1;
+    private int currentExperimentStage = -1;
 
     // Stage - Curved text.
     private int currentVisibleObject = 0;
@@ -40,7 +41,7 @@ public class Controller : MonoBehaviour
     private List<Transform> textList;
 
     private int participantId = 0;
-    FileHandler fh;
+    private FileHandler fh;
     private ExperimentData participantData;
 
     // Start is called before the first frame update
@@ -69,14 +70,14 @@ public class Controller : MonoBehaviour
         // Where the touch pad was triggered
         if (touchpadValue.x > TRIGGER_THRESHOLD_SMOOTH_SCALING) // RIGHT
         {
-            if (experimentStage == (int) ExperimentStage.flatScreen)   text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
-            if (experimentStage == (int) ExperimentStage.curvedScreen) ChangeObjectSize(textContainer, true);
+            if (currentScreenType == (int) ScreenType.flatScreen)   text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
+            if (currentScreenType == (int) ScreenType.curvedScreen) ChangeObjectSize(textContainer, true);
 
         }
         else if (touchpadValue.x < -TRIGGER_THRESHOLD_SMOOTH_SCALING) // LEFT
         {
-            if (experimentStage == (int) ExperimentStage.flatScreen) text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
-            if (experimentStage == (int) ExperimentStage.curvedScreen) ChangeObjectSize(textContainer, false);
+            if (currentScreenType == (int) ScreenType.flatScreen) text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
+            if (currentScreenType == (int) ScreenType.curvedScreen) ChangeObjectSize(textContainer, false);
 
         }
 
@@ -85,13 +86,13 @@ public class Controller : MonoBehaviour
             // Where the touch pad was triggered
             if (touchpadValue.y > TRIGGER_THRESHOLD) // UP
             {
-                if (experimentStage == (int) ExperimentStage.flatScreen) screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z + 1.0f);
-                if (experimentStage == (int) ExperimentStage.curvedScreen) ChangeVisibleObjectInList(TextWidth.increase);
+                if (currentScreenType == (int) ScreenType.flatScreen) screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z + 1.0f);
+                if (currentScreenType == (int) ScreenType.curvedScreen) ChangeVisibleObjectInList(TextWidth.increase);
             }
             else if (touchpadValue.y < -TRIGGER_THRESHOLD) // DOWN
             {
-                if (experimentStage == (int) ExperimentStage.flatScreen) screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z - 1.0f);
-                if (experimentStage == (int) ExperimentStage.curvedScreen) ChangeVisibleObjectInList(TextWidth.decrease);
+                if (currentScreenType == (int) ScreenType.flatScreen) screen.localPosition = new Vector3(screen.localPosition.x, screen.localPosition.y, screen.localPosition.z - 1.0f);
+                if (currentScreenType == (int) ScreenType.curvedScreen) ChangeVisibleObjectInList(TextWidth.decrease);
             }
 
         }
@@ -112,25 +113,66 @@ public class Controller : MonoBehaviour
         {
             participantData.participantId = participantId;
 
-            if (experimentStage == (int) ExperimentStage.flatScreen)
+            if (currentExperimentStage == (int) ExperimentStage.flatScreenComfortable)
             {
                 participantData.flatScreenParticipantPosComfortable = head.transform.localPosition;
                 participantData.flatScreenPosComfortable = screen.transform.localPosition;
                 participantData.flatScreenScaleComfortable = screen.transform.localScale;
                 participantData.flatScreenTextSizeComfortable = text.fontSize;
+                participantData.flatScreenDistanceToScreenComfortable = participantData.flatScreenPosComfortable.z - Mathf.Abs(participantData.flatScreenParticipantPosComfortable.z);
                 participantData.currentTextShownComfortable = currentTextShown;
-                fh.WriteToFile(participantData);
             }
-
-
-            if (experimentStage == (int) ExperimentStage.curvedScreen)
+            else if (currentExperimentStage == (int) ExperimentStage.flatScreenMinimum)
             {
+                participantData.flatScreenParticipantPosMinimum = head.transform.localPosition;
+                participantData.flatScreenPosMinimum = screen.transform.localPosition;
+                participantData.flatScreenScaleMinimum = screen.transform.localScale;
+                participantData.flatScreenTextSizeMinimum = text.fontSize;
+                participantData.flatScreenDistanceToScreenMinimum = participantData.flatScreenPosMinimum.z - Mathf.Abs(participantData.flatScreenParticipantPosMinimum.z);
+                participantData.currentTextShownMinimum = currentTextShown;
+            }
+            else if (currentExperimentStage == (int) ExperimentStage.curvedScreenComfortable)
+            {
+                participantData.curvedScreenParticipantPosComfortable = head.transform.localPosition;
                 participantData.curvedScreenPosComfortable = textCollection.transform.localPosition;
                 participantData.curvedScreenScaleComfortable = textCollection.transform.localScale;
+                participantData.curvedScreenDistanceToScreenComfortable = participantData.curvedScreenPosComfortable.z - Mathf.Abs(participantData.curvedScreenParticipantPosComfortable.z);
                 participantData.currentlyVisibleObjectComfortable = currentVisibleObject;
             }
-                //print(head.transform.localPosition);
-                //screen.transform.localPosition = new Vector3(screen.transform.localPosition.x, head.transform.localPosition.y, screen.localPosition.z);
+            else if (currentExperimentStage == (int) ExperimentStage.curvedScreenMinimum)
+            {
+                participantData.curvedScreenParticipantPosMinimum = head.transform.localPosition;
+                participantData.curvedScreenPosMinimum = textCollection.transform.localPosition;
+                participantData.curvedScreenScaleMinimum = textCollection.transform.localScale;
+                participantData.curvedScreenDistanceToScreenMinimum = participantData.curvedScreenPosMinimum.z - Mathf.Abs(participantData.curvedScreenParticipantPosMinimum.z);
+                participantData.currentlyVisibleObjectMinimum = currentVisibleObject;
+            }
+        }
+
+
+        /*
+         * Cancel experiment and write current data to file.
+         */
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            fh.WriteToFile(participantData);
+        }
+
+        /*
+         * Print values for debugging.
+         */
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            print(string.Format("ExperimentStage: {0}", currentExperimentStage));
+            print(string.Format("ScreenType: {0}", currentScreenType));
+        }
+        /*
+         * Increment currentExperimentStage
+         */
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            currentExperimentStage++;
+            print(string.Format("Changing to experiment stage: {0}", currentExperimentStage));
         }
 
         /**
@@ -141,22 +183,18 @@ public class Controller : MonoBehaviour
             if (currentTextShown == dataController.AllTextData.Length) currentTextShown = 0;
             text.text = dataController.AllTextData[currentTextShown++].Text;
         }
-
-        // Change between the experiment stage, either reading from a flat or a curved screen.
+        // Change between the screentype, either reading from a flat or a curved screen.
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-            ChangeExperimentStage((int) ExperimentStage.flatScreen);
+            ChangeVisibleScreen(ScreenType.flatScreen);
+            currentExperimentStage = 0;
+            currentScreenType = (int) ScreenType.flatScreen;
         }
         if (Input.GetKeyDown(KeyCode.Keypad2))
         {
-            ChangeExperimentStage((int) ExperimentStage.curvedScreen);
+            ChangeVisibleScreen(ScreenType.curvedScreen);
+            currentScreenType = (int) ScreenType.curvedScreen;
         }
-        if (Input.GetKeyDown(KeyCode.Keypad5)) // TEMPORARY
-        {
-            fh.WriteToFile(participantData);
-        }
-        
-
     }
 
     /*
@@ -204,13 +242,14 @@ public class Controller : MonoBehaviour
         }
     }
 
-    private void ChangeExperimentStage(int stageNumber)
-    {
-        experimentStage = stageNumber;
-        bool isStageOne = experimentStage == 0 ? true : false;
+    /*
+     * Decide which screen should be displayed.
+     */
+    private void ChangeVisibleScreen(ScreenType screenType)
+    { 
+        bool displayFlatScreen = screenType == ScreenType.flatScreen ? true : false;
 
-        screen.gameObject.SetActive(isStageOne);
-        textContainer.gameObject.SetActive(!isStageOne);
-        print("Experiment stage: " + experimentStage);
+        screen.gameObject.SetActive(displayFlatScreen);
+        textContainer.gameObject.SetActive(!displayFlatScreen);
     }
 }
