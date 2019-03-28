@@ -174,4 +174,28 @@ public class FileHandler : ScriptableObject
             }
         }
     }
+
+    public void WriteToFile(float data)
+    {
+        if (File.Exists("ExperimentData/characterinfo.txt"))
+        {
+            using (var append = File.AppendText("ExperimentData/characterinfo.txt"))
+            {
+                append.WriteLine(data);
+                append.Flush();
+                append.Close();
+            }
+
+        }
+        else // New participant, create new file with column identifiers on first line.
+        {
+            using (var writer = new StreamWriter("ExperimentData/characterinfo.txt"))
+            {
+
+                writer.WriteLine(data);
+                writer.Flush();
+                writer.Close();
+            }
+        }
+    }
 }
