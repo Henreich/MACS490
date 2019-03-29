@@ -60,7 +60,7 @@ public class Controller : MonoBehaviour
         {
             textMeshList.Add(text);
         }
-        currentVisibleObject = (int) textMeshList.Count / 2;
+        currentVisibleObject = (int) textMeshList.Count / 2;        
     }
 
     // Update is called once per frame
@@ -164,8 +164,15 @@ public class Controller : MonoBehaviour
          */
         if (Input.GetKeyDown(KeyCode.P))
         {
-            print(string.Format("ExperimentStage: {0}", currentExperimentStage));
-            print(string.Format("ScreenType: {0}", currentScreenType));
+            
+            Mesh mesh = textMeshList[currentVisibleObject].GetComponent<MeshFilter>().mesh; // Bounding box, but not actual text size.
+            print(mesh.bounds.size.x);
+            print(mesh.bounds.size.y);
+            print(mesh.bounds.size.z);
+
+            // At the exported size from Blender the first line is 0.069 high
+            // The other lines are 0.1 units high, which is what we divide by to get the lineCount
+            print(Mathf.Round(mesh.bounds.size.y / 0.1f));
         }
         /*
          * Increment currentExperimentStage and make sure the screentype changed accordingly.
