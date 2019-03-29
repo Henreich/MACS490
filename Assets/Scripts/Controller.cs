@@ -168,52 +168,12 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             text.ForceMeshUpdate();
-            // Identical.
-            //print(text.textInfo.lineInfo[0].baseline);
-
-            //float total = 0;
-            //for (int i = 0; i < text.textInfo.lineCount; i++)
-            //{
-            //    print(string.Format("{0}: {1}", i, text.textInfo.lineInfo[i].lineHeight));
-            //    total += text.textInfo.lineInfo[i].lineHeight;
-            //    fh.WriteToFile(text.textInfo.lineInfo[i].lineHeight);
-            //}
-            //print(total / text.textInfo.lineCount);
-            //print(text.GetRenderedValues().x / text.textInfo.lineCount);
-
-
-            // Average lineHeight of visible characters
-            float averageLineHeight = text.GetRenderedValues(true).x / text.textInfo.lineCount;
-            print(averageLineHeight);
-            //float lineHeightStandardDeviation = averageLineHeight;
-
-            //print(total); //1.035
-
-            //print(text.renderedWidth + " " + text.renderedHeight);                        // 1.000119, 1.033352
-            //print(text.GetRenderedValues(true).x + " " + text.GetRenderedValues(true).y); // 1.0001, 1.033352
-            //print(total - text.renderedWidth);                                            // 0.03488064
-            //print(total - text.GetRenderedValues(true).x);                                // 0.03489959
-
-
-            //string infoToFile = "";
-            //for (int i = 0; i < text.text.Length; i++)
-            //{
-            //    TMP_CharacterInfo characterInfo = text.GetTextInfo(text.text).characterInfo[i];
-
-
-            //    print(string.Format("{0} - Base line: {1}, lineNumber: {2}, Scale: {3}, Point size: {4}, Vertex index: {5}",
-            //         characterInfo.character, characterInfo.baseLine, characterInfo.lineNumber, characterInfo.scale, characterInfo.pointSize, characterInfo.vertexIndex
-            //    ));
-            //    infoToFile += string.Format("{0} - Base line: {1}, lineNumber: {2}, Scale: {3}, Point size: {4}, Vertex index: {5}",
-            //         characterInfo.character, characterInfo.baseLine, characterInfo.lineNumber, characterInfo.scale, characterInfo.pointSize, characterInfo.vertexIndex);
-            //    infoToFile += "\n";
-
-            //}
-            //fh.WriteToFile(infoToFile);
-            //print(text.bounds);
-
-            //print("word count:" + text.GetTextInfo(text.text).wordCount);
-            //print("lineHeight:" + text.GetTextInfo(text.text).lineInfo[0].lineHeight);
+            
+            print(text.textInfo.lineInfo[0].baseline);
+            print(text.textInfo.lineInfo[0].ascender);
+            print(text.textInfo.lineInfo[0].descender);
+            print(text.textInfo.lineInfo[0].lineHeight);
+            //print(text.GetRenderedValues(true).x);
         }
 
 
