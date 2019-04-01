@@ -153,9 +153,9 @@ public class FileHandler : ScriptableObject
 
     public void WriteToFile(string data)
     {
-        if (File.Exists("ExperimentData/characterinfo.txt"))
+        if (File.Exists("ExperimentData/lineInfo.txt"))
         {
-            using (var append = File.AppendText("ExperimentData/characterinfo.txt"))
+            using (var append = File.AppendText("ExperimentData/lineInfo.txt"))
             {
                 append.WriteLine(data);
                 append.Flush();
@@ -165,7 +165,7 @@ public class FileHandler : ScriptableObject
         }
         else // New participant, create new file with column identifiers on first line.
         {
-            using (var writer = new StreamWriter("ExperimentData/characterinfo.txt"))
+            using (var writer = new StreamWriter("ExperimentData/lineInfo.txt"))
             {
 
                 writer.WriteLine(data);
