@@ -128,6 +128,8 @@ public class Controller : MonoBehaviour
                 participantData.flatScreenDistanceToScreenComfortable = participantData.flatScreenPosComfortable.z - Mathf.Abs(participantData.flatScreenParticipantPosComfortable.z);
                 participantData.currentTextShownComfortable = currentTextShown;
                 participantData.flatScreenLineHeightComfortable = (float) System.Math.Round(text.textInfo.lineInfo[0].lineHeight, 4);
+                participantData.flatScreenAngularSizeComfortable = CalculateAngularSize(participantData.flatScreenLineHeightComfortable, participantData.flatScreenDistanceToScreenComfortable);
+                participantData.flatscreenDmmComfortable = CalculateDMM(participantData.flatScreenLineHeightComfortable, participantData.flatScreenDistanceToScreenComfortable);
             }
             else if (currentExperimentStage == (int) ExperimentStage.flatScreenMinimum)
             {
@@ -137,7 +139,9 @@ public class Controller : MonoBehaviour
                 participantData.flatScreenFontSizeMinimum = text.fontSize;
                 participantData.flatScreenDistanceToScreenMinimum = participantData.flatScreenPosMinimum.z - Mathf.Abs(participantData.flatScreenParticipantPosMinimum.z);
                 participantData.currentTextShownMinimum = currentTextShown;
-                participantData.flatScreenLineHeightMinimum = (float) System.Math.Round(text.textInfo.lineInfo[0].lineHeight, 4);
+                participantData.flatScreenLineHeightMinimum = (float)System.Math.Round(text.textInfo.lineInfo[0].lineHeight, 4);
+                participantData.flatScreenAngularSizeMinimum = CalculateAngularSize(participantData.flatScreenLineHeightMinimum, participantData.flatScreenDistanceToScreenMinimum);
+                participantData.flatscreenDmmMinimum = CalculateDMM(participantData.flatScreenLineHeightMinimum, participantData.flatScreenDistanceToScreenMinimum);
             }
             else if (currentExperimentStage == (int) ExperimentStage.curvedScreenComfortable)
             {
@@ -180,6 +184,8 @@ public class Controller : MonoBehaviour
          */
         if (Input.GetKeyDown(KeyCode.I))
         {
+            flatScreen.localPosition = new Vector3(0f, head.transform.localPosition.y, 3.0f);
+
             currentExperimentStage++;
             if (currentExperimentStage == (int) ExperimentStage.flatScreenComfortable) ChangeVisibleScreen(ScreenType.flatScreen);
             if (currentExperimentStage == (int) ExperimentStage.curvedScreenComfortable) ChangeVisibleScreen(ScreenType.curvedScreen);
@@ -252,5 +258,24 @@ public class Controller : MonoBehaviour
 
         flatScreen.gameObject.SetActive(displayFlatScreen);
         textContainer.gameObject.SetActive(!displayFlatScreen);
+
+    }
+
+    /*
+     * Returns angular size in degrees
+     */
+    private float CalculateAngularSize(float opposite, float adjacent)
+    {
+        return Mathf.Atan(opposite / adjacent) * Mathf.Rad2Deg; ;
+    }
+
+    /*
+     * Returns size in distance independent milimeters (i.e x mm at y meters away)
+     * Size: In meters
+     * Distance: In meters
+     */
+    private float CalculateDMM(float size, float distance)
+    {
+        return size / distance * 1000; // M to mm
     }
 }
