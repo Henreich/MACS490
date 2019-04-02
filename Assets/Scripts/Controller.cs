@@ -171,36 +171,6 @@ public class Controller : MonoBehaviour
          */
         if (Input.GetKeyDown(KeyCode.P))
         {
-            //int unitsPerEM = 2048;
-            //int samplingPointsize = 86;
-
-            text.ForceMeshUpdate();
-
-
-
-            //print(text.textInfo.lineInfo[0].baseline);
-            //print(text.textInfo.lineInfo[0].ascender);
-            //print(text.textInfo.lineInfo[0].descender);
-            //print(text.textInfo.lineInfo[1].lineHeight);
-
-
-            //for (int i = 0; i < text.textInfo.lineCount; i++)
-            //{
-            //    print(i + "-" + text.textInfo.lineInfo[i].lineHeight);
-            //    //print(text.textInfo.characterInfo[i].scale);
-            //}
-
-            //for (int i = 0; i < text.textInfo.lineCount; i++)
-            //{
-            //    fh.WriteToFile(string.Format("{0},{1}",
-            //        i, text.textInfo.lineInfo[i].lineHeight));
-            //}
-
-            //print((text.textInfo.lineInfo[0].lineHeight/unitsPerEM)*samplingPointsize);
-            //print((text.textInfo.lineInfo[0].lineHeight/unitsPerEM)*samplingPointsize* 455.63f);
-
-            //print(text.GetRenderedValues(true).x);
-
 
         }
 
