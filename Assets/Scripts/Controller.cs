@@ -43,6 +43,7 @@ public class Controller : MonoBehaviour
     private int currentVisibleObject = 0;
     private enum TextWidth { increase, decrease };
     private List<Transform> textMeshList;
+    private readonly float CURVED_TEXT_HEIGHT = 0.1f; // The y-dimension one line of the Blender generated text.
 
     private int participantId = 0;
     private FileHandler fh;
