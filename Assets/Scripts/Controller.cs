@@ -131,6 +131,7 @@ public class Controller : MonoBehaviour
                 participantData.flatScreenLineHeightComfortable = (float) System.Math.Round(text.textInfo.lineInfo[0].lineHeight, 4);
                 participantData.flatScreenAngularSizeComfortable = CalculateAngularSize(participantData.flatScreenLineHeightComfortable, participantData.flatScreenDistanceToScreenComfortable);
                 participantData.flatscreenDmmComfortable = CalculateDMM(participantData.flatScreenLineHeightComfortable, participantData.flatScreenDistanceToScreenComfortable);
+                print(participantData.flatScreenLineHeightComfortable);
             }
             else if (currentExperimentStage == (int) ExperimentStage.flatScreenMinimum)
             {
@@ -166,7 +167,7 @@ public class Controller : MonoBehaviour
         /*
          * Cancel experiment and write current data to file.
          */
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             fh.WriteToFile(participantData);
         }
