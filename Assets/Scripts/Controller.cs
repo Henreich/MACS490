@@ -43,7 +43,7 @@ public class Controller : MonoBehaviour
     private int currentVisibleObject = 0;
     private enum TextWidth { increase, decrease };
     private List<Transform> textMeshList;
-    private readonly float CURVED_TEXT_HEIGHT = 0.1f; // The y-dimension one line of the Blender generated text.
+    private readonly float INITIAL_CURVED_TEXT_HEIGHT = 0.1f; // The y-dimension one line of the Blender generated text.
 
     private int participantId = 0;
     private FileHandler fh;
@@ -152,6 +152,8 @@ public class Controller : MonoBehaviour
                 participantData.curvedScreenScaleComfortable = curvedTextMeshColletion.transform.localScale;
                 participantData.curvedScreenDistanceToScreenComfortable = participantData.curvedScreenPosComfortable.z - Mathf.Abs(participantData.curvedScreenParticipantPosComfortable.z);
                 participantData.currentlyVisibleObjectComfortable = currentVisibleObject;
+                participantData.curvedScreenLineHeightComfortable = INITIAL_CURVED_TEXT_HEIGHT * textContainer.transform.localScale.y;
+                //participantData.curvedScreenAngularSizeComfortable = CalculateAngularSize();
             }
             else if (currentExperimentStage == (int) ExperimentStage.curvedScreenMinimum)
             {
@@ -222,7 +224,7 @@ public class Controller : MonoBehaviour
         Vector3 position = obj.localPosition;
 
         scale = new Vector3(scale.x + increment, scale.y + increment, scale.z + increment);
-        position = new Vector3(position.x, position.y, position.z - increment * 2);
+        position = new Vector3(position.x, position.y, position.z - increment * 3);
 
         obj.transform.localScale = scale;
         obj.transform.localPosition = position;
