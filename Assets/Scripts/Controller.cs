@@ -117,23 +117,27 @@ public class Controller : MonoBehaviour
         {
             participantData.participantId = participantId;
 
+            text.ForceMeshUpdate();
+
             if (currentExperimentStage == (int) ExperimentStage.flatScreenComfortable)
             {
                 participantData.flatScreenParticipantPosComfortable = head.transform.localPosition;
                 participantData.flatScreenPosComfortable = flatScreen.transform.localPosition;
                 participantData.flatScreenScaleComfortable = flatScreen.transform.localScale;
-                participantData.flatScreenTextSizeComfortable = text.fontSize;
+                participantData.flatScreenFontSizeComfortable = text.fontSize;
                 participantData.flatScreenDistanceToScreenComfortable = participantData.flatScreenPosComfortable.z - Mathf.Abs(participantData.flatScreenParticipantPosComfortable.z);
                 participantData.currentTextShownComfortable = currentTextShown;
+                participantData.flatScreenLineHeightComfortable = (float) System.Math.Round(text.textInfo.lineInfo[0].lineHeight, 4);
             }
             else if (currentExperimentStage == (int) ExperimentStage.flatScreenMinimum)
             {
                 participantData.flatScreenParticipantPosMinimum = head.transform.localPosition;
                 participantData.flatScreenPosMinimum = flatScreen.transform.localPosition;
                 participantData.flatScreenScaleMinimum = flatScreen.transform.localScale;
-                participantData.flatScreenTextSizeMinimum = text.fontSize;
+                participantData.flatScreenFontSizeMinimum = text.fontSize;
                 participantData.flatScreenDistanceToScreenMinimum = participantData.flatScreenPosMinimum.z - Mathf.Abs(participantData.flatScreenParticipantPosMinimum.z);
                 participantData.currentTextShownMinimum = currentTextShown;
+                participantData.flatScreenLineHeightMinimum = (float) System.Math.Round(text.textInfo.lineInfo[0].lineHeight, 4);
             }
             else if (currentExperimentStage == (int) ExperimentStage.curvedScreenComfortable)
             {
@@ -167,27 +171,31 @@ public class Controller : MonoBehaviour
          */
         if (Input.GetKeyDown(KeyCode.P))
         {
-            int unitsPerEM = 2048;
-            int samplingPointsize = 86;
+            //int unitsPerEM = 2048;
+            //int samplingPointsize = 86;
 
             text.ForceMeshUpdate();
 
-            
-
-            print(text.textInfo.lineInfo[0].baseline);
-            print(text.textInfo.lineInfo[0].ascender);
-            print(text.textInfo.lineInfo[0].descender);
-            print(text.textInfo.lineInfo[0].lineHeight);
 
 
+            //print(text.textInfo.lineInfo[0].baseline);
+            //print(text.textInfo.lineInfo[0].ascender);
+            //print(text.textInfo.lineInfo[0].descender);
+            //print(text.textInfo.lineInfo[1].lineHeight);
 
-            for (int i = 0; i < text.textInfo.lineCount; i++)
-            {
-                fh.WriteToFile(string.Format("Line {0} BASELINE {1} ASCENDER {2} DESCENDER {3}", 
-                    i, text.textInfo.lineInfo[i].baseline, text.textInfo.lineInfo[i].ascender, text.textInfo.lineInfo[i].descender));
-            }
-            
-            
+
+            //for (int i = 0; i < text.textInfo.lineCount; i++)
+            //{
+            //    print(i + "-" + text.textInfo.lineInfo[i].lineHeight);
+            //    //print(text.textInfo.characterInfo[i].scale);
+            //}
+
+            //for (int i = 0; i < text.textInfo.lineCount; i++)
+            //{
+            //    fh.WriteToFile(string.Format("{0},{1}",
+            //        i, text.textInfo.lineInfo[i].lineHeight));
+            //}
+
             //print((text.textInfo.lineInfo[0].lineHeight/unitsPerEM)*samplingPointsize);
             //print((text.textInfo.lineInfo[0].lineHeight/unitsPerEM)*samplingPointsize* 455.63f);
 
