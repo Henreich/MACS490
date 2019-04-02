@@ -44,6 +44,8 @@ public class ExperimentData
     public float curvedScreenDistanceToScreenComfortable { get; set; }
     public float currentlyVisibleObjectComfortable { get; set; }
     public float curvedScreenLineHeightComfortable { get; set; }
+    public float curvedScreenAngularSizeComfortable { get; set; }
+    public float curvedscreenDmmComfortable { get; set; }
 
     // Minimum text size
     public Vector3 curvedScreenParticipantPosMinimum { get; set; }
@@ -52,4 +54,7 @@ public class ExperimentData
     public float curvedScreenDistanceToScreenMinimum { get; set; }
     public float currentlyVisibleObjectMinimum { get; set; }
     public float curvedScreenLineHeightMinimum { get; set; }
+    public float curvedtScreenLineHeightMinimum { get; set; }
+    public float curvedScreenAngularSizeMinimum { get; set; }
+    public float curvedscreenDmmMinimum { get; set; }
 }
