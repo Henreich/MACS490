@@ -26,7 +26,7 @@ public class FileHandler : ScriptableObject
             using (var append = File.AppendText(filePath))
             {
                 string csvFormattedOutput = string.Format(
-                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40}",
+                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44}",
                     // Flat Screen
                     // Comfortable text size
                     data.participantId,
@@ -40,7 +40,9 @@ public class FileHandler : ScriptableObject
                     data.flatScreenFontSizeComfortable,
                     data.flatScreenDistanceToScreenComfortable,
                     data.currentTextShownComfortable,
-                    data.curvedScreenLineHeightComfortable,
+                    data.flatScreenLineHeightComfortable,
+                    data.flatScreenAngularSizeComfortable,
+                    data.flatscreenDmmComfortable,
 
                     // Minimum text size
                     data.flatScreenParticipantPosMinimum.x,
@@ -53,7 +55,9 @@ public class FileHandler : ScriptableObject
                     data.flatScreenFontSizeMinimum,
                     data.flatScreenDistanceToScreenMinimum,
                     data.currentTextShownMinimum,
-                    data.curvedScreenLineHeightMinimum,
+                    data.flatScreenLineHeightMinimum,
+                    data.flatScreenAngularSizeMinimum,
+                    data.flatscreenDmmMinimum,
 
                     // Curved screen
                     // Comfortable text size
@@ -99,52 +103,56 @@ public class FileHandler : ScriptableObject
                 string col6   = "flatScreenScaleComfortableX";
                 string col7   = "flatScreenScaleComfortableY";
                 string col8   = "flatScreenScaleComfortableZ";
-                string col9   = "flatScreenTextSizeComfortable";
+                string col9   = "flatScreenFontSizeComfortable";
                 string col10  = "flatScreenDistanceToScreenComfortable";
                 string col11  = "currentTextShownComfortable";
                 string col12  = "flatScreenLineHeightComfortable";
+                string col13  = "flatScreenAngularSizeComfortable";
+                string col14  = "flatscreenDmmComfortable";
 
                 // Minimum text size
-                string col13  = "flatScreenParticipantPosMinimumX";
-                string col14  = "flatScreenParticipantPosMinimumZ";
-                string col15  = "flatScreenPosMinimumX";
-                string col16  = "flatScreenPosMinimumZ";
-                string col17  = "flatScreenScaleMinimumX";
-                string col18  = "flatScreenScaleMinimumY";
-                string col19  = "flatScreenScaleMinimumZ";
-                string col20  = "flatScreenTextSizeMinimum";
-                string col21  = "flatScreenDistanceToScreenMinimum";
-                string col22  = "currentTextShownMinimum";
-                string col23 = "flatScreenLineHeightMinimum";
+                string col15  = "flatScreenParticipantPosMinimumX";
+                string col16  = "flatScreenParticipantPosMinimumZ";
+                string col17  = "flatScreenPosMinimumX";
+                string col18  = "flatScreenPosMinimumZ";
+                string col19  = "flatScreenScaleMinimumX";
+                string col20  = "flatScreenScaleMinimumY";
+                string col21  = "flatScreenScaleMinimumZ";
+                string col22  = "flatScreenFontSizeMinimum";
+                string col23  = "flatScreenDistanceToScreenMinimum";
+                string col24  = "currentTextShownMinimum";
+                string col25  = "flatScreenLineHeightMinimum";
+                string col26  = "flatScreenAngularSizeMinimum";
+                string col27  = "flatscreenDmmMinimum";
 
                 // Curved screen
                 // Comfortable text size
-                string col24  = "curvedScreenParticipantPosComfortableX";
-                string col25  = "curvedScreenParticipantPosComfortableZ";
-                string col26  = "curvedScreenPosComfortableX";
-                string col27  = "curvedScreenPosComfortableZ";
-                string col28  = "curvedScreenScaleComfortableX";
-                string col29  = "curvedScreenScaleComfortableY";
-                string col30  = "curvedScreenScaleComfortableZ";
-                string col31  = "curvedScreenDistanceToScreenComfortable";
-                string col32  = "currentlyVisibleObjectComfortable";
+                string col28  = "curvedScreenParticipantPosComfortableX";
+                string col29  = "curvedScreenParticipantPosComfortableZ";
+                string col30  = "curvedScreenPosComfortableX";
+                string col31  = "curvedScreenPosComfortableZ";
+                string col32  = "curvedScreenScaleComfortableX";
+                string col33  = "curvedScreenScaleComfortableY";
+                string col34  = "curvedScreenScaleComfortableZ";
+                string col35  = "curvedScreenDistanceToScreenComfortable";
+                string col36  = "currentlyVisibleObjectComfortable";
 
                 // Minimum text size
-                string col33  = "curvedScreenParticipantPosMinimumX";
-                string col34  = "curvedScreenParticipantPosMinimumZ";
-                string col35  = "curvedScreenPosMinimumX";
-                string col36  = "curvedScreenPosMinimumZ";
-                string col37  = "curvedScreenScaleMinimumX";
-                string col38  = "curvedScreenScaleMinimumY";
-                string col39  = "curvedScreenScaleMinimumZ";
-                string col40  = "curvedScreenDistanceToScreenMinimum";
-                string col41  = "currentlyVisibleObjectMinimum";
+                string col37  = "curvedScreenParticipantPosMinimumX";
+                string col38  = "curvedScreenParticipantPosMinimumZ";
+                string col39  = "curvedScreenPosMinimumX";
+                string col40  = "curvedScreenPosMinimumZ";
+                string col41  = "curvedScreenScaleMinimumX";
+                string col42  = "curvedScreenScaleMinimumY";
+                string col43  = "curvedScreenScaleMinimumZ";
+                string col44  = "curvedScreenDistanceToScreenMinimum";
+                string col45  = "currentlyVisibleObjectMinimum";
                 //string col  = "";
 
                 // ,{}
                 string csvFormattedOutput = string.Format(
-                     "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40}", 
-                    col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12, col13, col14, col15, col16, col17, col18, col19, col20, col21, col22, col23, col24, col25, col26, col27, col28, col29, col30, col31, col32, col33, col34, col35, col36, col37, col38, col39, col40, col41
+                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44}",
+                    col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12, col13, col14, col15, col16, col17, col18, col19, col20, col21, col22, col23, col24, col25, col26, col27, col28, col29, col30, col31, col32, col33, col34, col35, col36, col37, col38, col39, col40, col41, col42, col43, col44, col45
                 );
 
                 writer.WriteLine(csvFormattedOutput);
