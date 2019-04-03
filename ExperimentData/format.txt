@@ -1,0 +1,17 @@
+participantId		experimentStage		participantPosition(x,(y),z) 		screenPosition(x,y,z) 		screenScale(x,y,z)		fontSize		currentlyVisibleText		calculatedDistanceToScreen
+0					0					0,0,0								0,0,1						0,0,0					1.7				1							1
+0					1					0,0,0								0,0,1.2						0,0,0					1.0				1							1.2
+
+
+Id
+Participant's ID
+
+experimentId
+0 = Flat screen, comfortable reading
+1 = Flat screen, minimum size but still readable
+2 = Flat screen, comfortable reading. Distance doubled.
+3 = Flat screen, minimum size, but still readable. Distance doubled.
+4 = Curved screen, comfortable reading
+5 = Curved screen, minimum size, but still readable
+
+participantId 		participantPosition (x, z)		flatScreenPos (x,y,z) 		flatScreenScale(x,y,z)		flatScreenFontSize		currentlyVisibleText
