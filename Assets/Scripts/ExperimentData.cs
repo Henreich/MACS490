@@ -25,6 +25,15 @@ public class ExperimentData
     public float flatScreenAngularSizeComfortable { get; set; }
     public float flatscreenDmmComfortable { get; set; }
 
+
+    // Line width
+    public Vector3 flatScreenParticipantPosLineWidth { get; set; }
+    public float flatScreenDistanceToScreenLineWidth { get; set; }
+    public float flatScreenLineWidth { get; set; }
+    public float flatScreenAngularSizeLineWidth { get; set; }
+    public float flatScreenDMMLineWidth { get; set; }
+
+
     // Minimum text size
     public Vector3 flatScreenParticipantPosMinimum { get; set; }
     public Vector3 flatScreenPosMinimum { get; set; }
@@ -46,6 +55,13 @@ public class ExperimentData
     public float curvedScreenLineHeightComfortable { get; set; }
     public float curvedScreenAngularSizeComfortable { get; set; }
     public float curvedscreenDmmComfortable { get; set; }
+     
+    // Line width
+    public Vector3 curvedScreenParticipantPosLineWidth { get; set; }
+    public float curvedScreenDistanceToScreenLineWidth { get; set; }
+    public float curvedScreenLineWidth { get; set; }
+    public float curvedScreenAngularSizeLineWidth { get; set; }
+    public float curvedScreenDMMLineWidth { get; set; }
 
     // Minimum text size
     public Vector3 curvedScreenParticipantPosMinimum { get; set; }
