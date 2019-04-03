@@ -230,8 +230,9 @@ public class Controller : MonoBehaviour
          */
         if (Input.GetKeyDown(KeyCode.A))
         {
+            currentTextShown++;
             if (currentTextShown == dataController.AllTextData.Length) currentTextShown = 0;
-            text.text = dataController.AllTextData[currentTextShown++].Text;
+            text.text = dataController.AllTextData[currentTextShown].Text;
         }
     }
 
