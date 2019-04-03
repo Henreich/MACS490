@@ -37,14 +37,17 @@ public class Controller : MonoBehaviour
         curvedScreenComfortable,
         curvedScreenMinimum
     };
+    [SerializeField]
     private int currentExperimentStage = -1;
 
     // Stage - Curved text.
     private int currentVisibleObject = 0;
     private enum TextWidth { increase, decrease };
     private List<Transform> textMeshList;
+    private readonly float INITIAL_RADIUS = 3.0f; // When generated in Blender.
     private readonly float INITIAL_CURVED_TEXT_HEIGHT = 0.1f; // The y-dimension one line of the Blender generated text.
 
+    [SerializeField]
     private int participantId = 0;
     private FileHandler fh;
     private ExperimentData participantData;
@@ -111,8 +114,7 @@ public class Controller : MonoBehaviour
 
 
         /**
-         * Set "flatScreen" height to match the height of the user's head.
-         * TODO Maybe position it  a bit lower than the user's head. Example 6 degrees down (Google I/0 17)
+         * Store data that is relevant to the currentExperimentStage
          */
         if (SteamVR_Actions._default.GrabPinch.GetStateDown(SteamVR_Input_Sources.Any) || Input.GetKeyDown(KeyCode.S))
         {
@@ -126,12 +128,12 @@ public class Controller : MonoBehaviour
                 participantData.flatScreenPosComfortable = flatScreen.transform.localPosition;
                 participantData.flatScreenScaleComfortable = flatScreen.transform.localScale;
                 participantData.flatScreenFontSizeComfortable = text.fontSize;
-                participantData.flatScreenDistanceToScreenComfortable = participantData.flatScreenPosComfortable.z - Mathf.Abs(participantData.flatScreenParticipantPosComfortable.z);
+                participantData.flatScreenDistanceToScreenComfortable = participantData.flatScreenPosComfortable.z - participantData.flatScreenParticipantPosComfortable.z;
                 participantData.currentTextShownComfortable = currentTextShown;
                 participantData.flatScreenLineHeightComfortable = (float) System.Math.Round(text.textInfo.lineInfo[0].lineHeight, 4);
                 participantData.flatScreenAngularSizeComfortable = CalculateAngularSize(participantData.flatScreenLineHeightComfortable, participantData.flatScreenDistanceToScreenComfortable);
                 participantData.flatscreenDmmComfortable = CalculateDMM(participantData.flatScreenLineHeightComfortable, participantData.flatScreenDistanceToScreenComfortable);
-                print(participantData.flatScreenLineHeightComfortable);
+                print("Storing data - Flat screen comfortable");
             }
             else if (currentExperimentStage == (int) ExperimentStage.flatScreenMinimum)
             {
@@ -139,29 +141,36 @@ public class Controller : MonoBehaviour
                 participantData.flatScreenPosMinimum = flatScreen.transform.localPosition;
                 participantData.flatScreenScaleMinimum = flatScreen.transform.localScale;
                 participantData.flatScreenFontSizeMinimum = text.fontSize;
-                participantData.flatScreenDistanceToScreenMinimum = participantData.flatScreenPosMinimum.z - Mathf.Abs(participantData.flatScreenParticipantPosMinimum.z);
+                participantData.flatScreenDistanceToScreenMinimum = participantData.flatScreenPosMinimum.z - participantData.flatScreenParticipantPosMinimum.z;
                 participantData.currentTextShownMinimum = currentTextShown;
                 participantData.flatScreenLineHeightMinimum = (float)System.Math.Round(text.textInfo.lineInfo[0].lineHeight, 4);
                 participantData.flatScreenAngularSizeMinimum = CalculateAngularSize(participantData.flatScreenLineHeightMinimum, participantData.flatScreenDistanceToScreenMinimum);
                 participantData.flatscreenDmmMinimum = CalculateDMM(participantData.flatScreenLineHeightMinimum, participantData.flatScreenDistanceToScreenMinimum);
+                print("Storing data - Flat screen minimum");
             }
             else if (currentExperimentStage == (int) ExperimentStage.curvedScreenComfortable)
             {
                 participantData.curvedScreenParticipantPosComfortable = head.transform.localPosition;
-                participantData.curvedScreenPosComfortable = curvedTextMeshColletion.transform.localPosition;
-                participantData.curvedScreenScaleComfortable = curvedTextMeshColletion.transform.localScale;
-                participantData.curvedScreenDistanceToScreenComfortable = participantData.curvedScreenPosComfortable.z - Mathf.Abs(participantData.curvedScreenParticipantPosComfortable.z);
+                participantData.curvedScreenPosComfortable = textContainer.transform.localPosition;
+                participantData.curvedScreenScaleComfortable = textContainer.transform.localScale;
+                participantData.curvedScreenDistanceToScreenComfortable = (INITIAL_RADIUS * participantData.curvedScreenScaleComfortable.z + participantData.curvedScreenPosComfortable.z) - participantData.curvedScreenParticipantPosComfortable.z;
                 participantData.currentlyVisibleObjectComfortable = currentVisibleObject;
-                participantData.curvedScreenLineHeightComfortable = INITIAL_CURVED_TEXT_HEIGHT * textContainer.transform.localScale.y;
-                //participantData.curvedScreenAngularSizeComfortable = CalculateAngularSize();
+                participantData.curvedScreenLineHeightComfortable = INITIAL_CURVED_TEXT_HEIGHT * participantData.curvedScreenScaleComfortable.y;
+                participantData.curvedScreenAngularSizeComfortable = CalculateAngularSize(participantData.curvedScreenLineHeightComfortable, participantData.curvedScreenDistanceToScreenComfortable);
+                participantData.curvedscreenDmmComfortable = CalculateDMM(participantData.curvedScreenLineHeightComfortable, participantData.curvedScreenDistanceToScreenComfortable);
+                print("Storing data - Curved screen comfortable");
             }
             else if (currentExperimentStage == (int) ExperimentStage.curvedScreenMinimum)
             {
                 participantData.curvedScreenParticipantPosMinimum = head.transform.localPosition;
-                participantData.curvedScreenPosMinimum = curvedTextMeshColletion.transform.localPosition;
-                participantData.curvedScreenScaleMinimum = curvedTextMeshColletion.transform.localScale;
-                participantData.curvedScreenDistanceToScreenMinimum = participantData.curvedScreenPosMinimum.z - Mathf.Abs(participantData.curvedScreenParticipantPosMinimum.z);
+                participantData.curvedScreenPosMinimum = textContainer.transform.localPosition;
+                participantData.curvedScreenScaleMinimum = textContainer.transform.localScale;
+                participantData.curvedScreenDistanceToScreenMinimum = (INITIAL_RADIUS * participantData.curvedScreenScaleMinimum.z + participantData.curvedScreenPosMinimum.z) - participantData.curvedScreenParticipantPosMinimum.z;
                 participantData.currentlyVisibleObjectMinimum = currentVisibleObject;
+                participantData.curvedScreenLineHeightMinimum = INITIAL_CURVED_TEXT_HEIGHT * participantData.curvedScreenScaleMinimum.y;
+                participantData.curvedScreenAngularSizeMinimum = CalculateAngularSize(participantData.curvedScreenLineHeightMinimum, participantData.curvedScreenDistanceToScreenMinimum);
+                participantData.curvedscreenDmmMinimum = CalculateDMM(participantData.curvedScreenLineHeightMinimum, participantData.curvedScreenDistanceToScreenMinimum);
+                print("Storing data - Curved screen minimum");
             }
         }
 
@@ -198,6 +207,18 @@ public class Controller : MonoBehaviour
             flatScreen.localPosition = new Vector3(0f, head.transform.localPosition.y, 3.0f);
 
             currentExperimentStage++;
+            if (currentExperimentStage == (int) ExperimentStage.flatScreenComfortable) ChangeVisibleScreen(ScreenType.flatScreen);
+            if (currentExperimentStage == (int) ExperimentStage.curvedScreenComfortable) ChangeVisibleScreen(ScreenType.curvedScreen);
+            print(string.Format("Changing to experiment stage: {0}", currentExperimentStage));
+        }        
+        /*
+         * Increment currentExperimentStage and make sure the screentype changed accordingly.
+         */
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            flatScreen.localPosition = new Vector3(0f, head.transform.localPosition.y, 3.0f);
+
+            currentExperimentStage--;
             if (currentExperimentStage == (int) ExperimentStage.flatScreenComfortable) ChangeVisibleScreen(ScreenType.flatScreen);
             if (currentExperimentStage == (int) ExperimentStage.curvedScreenComfortable) ChangeVisibleScreen(ScreenType.curvedScreen);
             print(string.Format("Changing to experiment stage: {0}", currentExperimentStage));

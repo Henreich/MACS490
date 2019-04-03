@@ -54,7 +54,6 @@ public class ExperimentData
     public float curvedScreenDistanceToScreenMinimum { get; set; }
     public float currentlyVisibleObjectMinimum { get; set; }
     public float curvedScreenLineHeightMinimum { get; set; }
-    public float curvedtScreenLineHeightMinimum { get; set; }
     public float curvedScreenAngularSizeMinimum { get; set; }
     public float curvedscreenDmmMinimum { get; set; }
 }

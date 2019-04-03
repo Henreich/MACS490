@@ -13,9 +13,9 @@ public class FileHandler : ScriptableObject
      * Writes the ExperimentData to file in .csv format. Each participant
      * has one row of data, meaning there's a lot of columns. This is because
      * the data will be interpreted by SPSS. 
-     * TODO: Will check if one row is actually
-     * beneficial for SPSS, since the amount of columns is getting out of hand.
      */
+    //string col = "";
+    // ,{}
     public void WriteToFile(ExperimentData data)
     {
         string filePath = folderPath + fileName + suffix;
@@ -26,7 +26,7 @@ public class FileHandler : ScriptableObject
             using (var append = File.AppendText(filePath))
             {
                 string csvFormattedOutput = string.Format(
-                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44}",
+                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50}",
                     // Flat Screen
                     // Comfortable text size
                     data.participantId,
@@ -70,6 +70,9 @@ public class FileHandler : ScriptableObject
                     data.curvedScreenScaleComfortable.z,
                     data.curvedScreenDistanceToScreenComfortable,
                     data.currentlyVisibleObjectComfortable,
+                    data.curvedScreenLineHeightComfortable,
+                    data.curvedScreenAngularSizeComfortable,
+                    data.curvedscreenDmmComfortable,
 
                     // Minimum text size
                     data.curvedScreenParticipantPosMinimum.x,
@@ -80,7 +83,10 @@ public class FileHandler : ScriptableObject
                     data.curvedScreenScaleMinimum.y,
                     data.curvedScreenScaleMinimum.z,
                     data.curvedScreenDistanceToScreenMinimum,
-                    data.currentlyVisibleObjectMinimum
+                    data.currentlyVisibleObjectMinimum,
+                    data.curvedScreenLineHeightMinimum,
+                    data.curvedScreenAngularSizeMinimum,
+                    data.curvedscreenDmmMinimum
                 );
                 append.WriteLine(csvFormattedOutput);
                 append.Flush();
@@ -136,23 +142,27 @@ public class FileHandler : ScriptableObject
                 string col34  = "curvedScreenScaleComfortableZ";
                 string col35  = "curvedScreenDistanceToScreenComfortable";
                 string col36  = "currentlyVisibleObjectComfortable";
+                string col37  = "curvedScreenLineHeightComfortable";
+                string col38  = "curvedScreenAngularSizeComfortable";
+                string col39  = "curvedscreenDmmComfortable";
 
                 // Minimum text size
-                string col37  = "curvedScreenParticipantPosMinimumX";
-                string col38  = "curvedScreenParticipantPosMinimumZ";
-                string col39  = "curvedScreenPosMinimumX";
-                string col40  = "curvedScreenPosMinimumZ";
-                string col41  = "curvedScreenScaleMinimumX";
-                string col42  = "curvedScreenScaleMinimumY";
-                string col43  = "curvedScreenScaleMinimumZ";
-                string col44  = "curvedScreenDistanceToScreenMinimum";
-                string col45  = "currentlyVisibleObjectMinimum";
-                //string col  = "";
+                string col40  = "curvedScreenParticipantPosMinimumX";
+                string col41  = "curvedScreenParticipantPosMinimumZ";
+                string col42  = "curvedScreenPosMinimumX";
+                string col43  = "curvedScreenPosMinimumZ";
+                string col44  = "curvedScreenScaleMinimumX";
+                string col45  = "curvedScreenScaleMinimumY";
+                string col46  = "curvedScreenScaleMinimumZ";
+                string col47  = "curvedScreenDistanceToScreenMinimum";
+                string col48  = "currentlyVisibleObjectMinimum";
+                string col49  = "curvedScreenLineHeightMinimum";
+                string col50  = "curvedScreenAngularSizeMinimum";
+                string col51  = "curvedscreenDmmMinimum";
 
-                // ,{}
                 string csvFormattedOutput = string.Format(
-                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44}",
-                    col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12, col13, col14, col15, col16, col17, col18, col19, col20, col21, col22, col23, col24, col25, col26, col27, col28, col29, col30, col31, col32, col33, col34, col35, col36, col37, col38, col39, col40, col41, col42, col43, col44, col45
+                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50}",
+                    col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, col11, col12, col13, col14, col15, col16, col17, col18, col19, col20, col21, col22, col23, col24, col25, col26, col27, col28, col29, col30, col31, col32, col33, col34, col35, col36, col37, col38, col39, col40, col41, col42, col43, col44, col45, col46, col47, col48, col49, col50, col51
                 );
 
                 writer.WriteLine(csvFormattedOutput);
