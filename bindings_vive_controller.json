@@ -140,6 +140,24 @@
                },
                "mode" : "button",
                "path" : "/user/hand/right/input/trigger"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/grabgrip"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/left/input/grip"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/grabgrip"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/right/input/grip"
             }
          ]
       },
@@ -185,7 +203,7 @@
       }
    },
    "controller_type" : "vive_controller",
-   "description" : "",
+   "description" : "Expose grab grip for use in scripts",
    "name" : "vive_controller",
    "options" : {},
    "simulated_actions" : []
