@@ -7,6 +7,8 @@ using System.Linq;
 
 public class Controller : MonoBehaviour
 {
+    public bool DEBUG = true;
+
     public SteamVR_Action_Single squeezeAction;
     public SteamVR_Action_Vector2 touchpadAction;
 
@@ -174,7 +176,6 @@ public class Controller : MonoBehaviour
             }
         }
 
-
         /*
          * Cancel experiment and write current data to file.
          */
@@ -202,7 +203,7 @@ public class Controller : MonoBehaviour
         /*
          * Increment currentExperimentStage and make sure the screentype changed accordingly.
          */
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) || (SteamVR_Actions._default.GrabGrip.GetStateDown(SteamVR_Input_Sources.Any) && DEBUG))
         {
             flatScreen.localPosition = new Vector3(0f, head.transform.localPosition.y, 3.0f);
 
