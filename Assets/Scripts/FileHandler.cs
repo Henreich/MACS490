@@ -77,7 +77,7 @@ public class FileHandler : ScriptableObject
                     data.curvedScreenScaleComfortable.y,
                     data.curvedScreenScaleComfortable.z,
                     data.curvedScreenDistanceToScreenComfortable,
-                    data.currentlyVisibleObjectComfortable,
+                    data.curvedScreenLineWidthComfortable,
                     data.curvedScreenLineHeightComfortable,
                     data.curvedScreenAngularSizeComfortable,
                     data.curvedscreenDmmComfortable,
@@ -86,7 +86,7 @@ public class FileHandler : ScriptableObject
                     data.curvedScreenParticipantPosLineWidth.x,
                     data.curvedScreenParticipantPosLineWidth.z,
                     data.curvedScreenDistanceToScreenLineWidth,
-                    data.curvedScreenLineWidth,
+                    data.curvedScreenWidth,
                     data.curvedScreenAngularSizeLineWidth,
                     data.curvedScreenDMMLineWidth,
 
@@ -99,7 +99,7 @@ public class FileHandler : ScriptableObject
                     data.curvedScreenScaleMinimum.y,
                     data.curvedScreenScaleMinimum.z,
                     data.curvedScreenDistanceToScreenMinimum,
-                    data.currentlyVisibleObjectMinimum,
+                    data.curvedScreenLineWidthMinimum,
                     data.curvedScreenLineHeightMinimum,
                     data.curvedScreenAngularSizeMinimum,
                     data.curvedscreenDmmMinimum
@@ -165,7 +165,7 @@ public class FileHandler : ScriptableObject
                 string col39  = "curvedScreenScaleComfortableY";
                 string col40  = "curvedScreenScaleComfortableZ";
                 string col41  = "curvedScreenDistanceToScreenComfortable";
-                string col42  = "currentlyVisibleObjectComfortable";
+                string col42  = "curvedScreenLineWidthComfortable";
                 string col43  = "curvedScreenLineHeightComfortable";
                 string col44  = "curvedScreenAngularSizeComfortable";
                 string col45  = "curvedscreenDmmComfortable";
@@ -174,7 +174,7 @@ public class FileHandler : ScriptableObject
                 string col46 = "curvedScreenParticipantPosLineWidthX";
                 string col47 = "curvedScreenParticipantPosLineWidthY";
                 string col48 = "curvedScreenDistanceToScreenLineWidth";
-                string col49 = "curvedScreenLineWidth";
+                string col49 = "curvedScreenWidth";
                 string col50 = "curvedScreenAngularSizeLineWidth";
                 string col51 = "curvedScreenDMMLineWidth";
 
@@ -187,7 +187,7 @@ public class FileHandler : ScriptableObject
                 string col57  = "curvedScreenScaleMinimumY";
                 string col58  = "curvedScreenScaleMinimumZ";
                 string col59  = "curvedScreenDistanceToScreenMinimum";
-                string col60  = "currentlyVisibleObjectMinimum";
+                string col60  = "curvedScreenLineWidthMinimum";
                 string col61  = "curvedScreenLineHeightMinimum";
                 string col62  = "curvedScreenAngularSizeMinimum";
                 string col63  = "curvedscreenDmmMinimum";

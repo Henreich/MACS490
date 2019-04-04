@@ -21,7 +21,21 @@ def createCurvedText(text, textBoxWidth, circleObj):
     textObject.data.align_x = 'LEFT'
     textObject.data.align_y = 'CENTER'
     textObject.data.text_boxes[0].width = textBoxWidth
-    textObject.data.body = text
+    
+    
+    textList = text.replace("\r\n", "").split("|")
+    #print(textList)
+    if textBoxWidth < 2.5:
+        stringToBeRead = textList[0]
+    else:
+        stringToBeRead = textList[0] + textList[1]
+    
+    if textBoxWidth > 6.7:
+        stringToBeRead = stringToBeRead + textList[2]
+    if textBoxWidth > 7.5:
+        stringToBeRead = stringToBeRead + textList[3]
+    textObject.data.body = stringToBeRead
+    
 
     # Name to reflect which width was used. Casting to int to avoid
     # floating point rounding errors and casting to string be used as a name.
@@ -74,7 +88,7 @@ def getTextFromFile():
 
 
 def createCurvedTextsAtDistance(initialWidth, lastWidth, textData, circleObj):
-    widthModifier = 0.10 # To do ranges in smaller increments than whole numbers
+    widthModifier = 0.20 # To do ranges in smaller increments than whole numbers
 
     for textBoxWidth in range (initialWidth, lastWidth):
         createCurvedText(textData['Text'], textBoxWidth * widthModifier, circleObj)
@@ -93,5 +107,7 @@ bpy.ops.object.delete()
 data = getTextFromFile()
 
 for Text in data['Items']:
-    if Text['Id'] == 1:
-        createCurvedTextsAtDistance(8, 31, Text, createCircle(1))
+    if Text['Id'] == 4:
+        createCurvedTextsAtDistance(4, 36, Text, createCircle(3))
+        #createCurvedTextsAtDistance(20, 21, Text, createCircle(3))
+

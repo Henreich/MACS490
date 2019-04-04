@@ -38,6 +38,24 @@ ModelImporter:
     100064: Text48
     100066: Text50
     100068: Text52
+    100070: Text54
+    100072: Text56
+    100074: Text58
+    100076: Text60
+    100078: Text62
+    100080: Text64
+    100082: Text66
+    100084: Text68
+    100086: Text70
+    100088: Text72
+    100090: Text74
+    100092: Text76
+    100094: Text78
+    100096: Text80
+    100098: Text82
+    100100: Text84
+    100102: Text86
+    100104: Text88
     400000: //RootNode
     400002: Text10
     400004: Text11
@@ -73,6 +91,24 @@ ModelImporter:
     400064: Text48
     400066: Text50
     400068: Text52
+    400070: Text54
+    400072: Text56
+    400074: Text58
+    400076: Text60
+    400078: Text62
+    400080: Text64
+    400082: Text66
+    400084: Text68
+    400086: Text70
+    400088: Text72
+    400090: Text74
+    400092: Text76
+    400094: Text78
+    400096: Text80
+    400098: Text82
+    400100: Text84
+    400102: Text86
+    400104: Text88
     2100000: Black_font_colour
     2300000: //RootNode
     2300002: Text10
@@ -109,6 +145,24 @@ ModelImporter:
     2300064: Text48
     2300066: Text50
     2300068: Text52
+    2300070: Text54
+    2300072: Text56
+    2300074: Text58
+    2300076: Text60
+    2300078: Text62
+    2300080: Text64
+    2300082: Text66
+    2300084: Text68
+    2300086: Text70
+    2300088: Text72
+    2300090: Text74
+    2300092: Text76
+    2300094: Text78
+    2300096: Text80
+    2300098: Text82
+    2300100: Text84
+    2300102: Text86
+    2300104: Text88
     3300000: //RootNode
     3300002: Text10
     3300004: Text11
@@ -144,6 +198,24 @@ ModelImporter:
     3300064: Text48
     3300066: Text50
     3300068: Text52
+    3300070: Text54
+    3300072: Text56
+    3300074: Text58
+    3300076: Text60
+    3300078: Text62
+    3300080: Text64
+    3300082: Text66
+    3300084: Text68
+    3300086: Text70
+    3300088: Text72
+    3300090: Text74
+    3300092: Text76
+    3300094: Text78
+    3300096: Text80
+    3300098: Text82
+    3300100: Text84
+    3300102: Text86
+    3300104: Text88
     4300000: Circle-radius-3
     4300002: Text30
     4300004: Text29
@@ -179,6 +251,24 @@ ModelImporter:
     4300064: Text36
     4300066: Text34
     4300068: Text32
+    4300070: Text88
+    4300072: Text86
+    4300074: Text84
+    4300076: Text82
+    4300078: Text80
+    4300080: Text78
+    4300082: Text76
+    4300084: Text74
+    4300086: Text72
+    4300088: Text70
+    4300090: Text68
+    4300092: Text66
+    4300094: Text64
+    4300096: Text62
+    4300098: Text60
+    4300100: Text58
+    4300102: Text56
+    4300104: Text54
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs
