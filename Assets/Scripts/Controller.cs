@@ -72,7 +72,8 @@ public class Controller : MonoBehaviour
         {
             textMeshList.Add(text);
         }
-        currentVisibleObject = (int) textMeshList.Count / 2;        
+        currentVisibleObject = (int) textMeshList.Count / 2;
+        textMeshList[currentVisibleObject].gameObject.SetActive(true);
     }
 
     // Update is called once per frame
@@ -187,7 +188,7 @@ public class Controller : MonoBehaviour
                 participantData.curvedScreenPosComfortable = textContainer.transform.localPosition;
                 participantData.curvedScreenScaleComfortable = textContainer.transform.localScale;
                 participantData.curvedScreenDistanceToScreenComfortable = (INITIAL_RADIUS * participantData.curvedScreenScaleComfortable.z + participantData.curvedScreenPosComfortable.z) - participantData.curvedScreenParticipantPosComfortable.z;
-                participantData.currentlyVisibleObjectComfortable = currentVisibleObject;
+                participantData.curvedScreenLineWidthComfortable = (currentVisibleObject * 0.2f) + 0.8f;
                 participantData.curvedScreenLineHeightComfortable = INITIAL_CURVED_TEXT_HEIGHT * participantData.curvedScreenScaleComfortable.y;
                 participantData.curvedScreenAngularSizeComfortable = CalculateAngularSize(participantData.curvedScreenLineHeightComfortable, participantData.curvedScreenDistanceToScreenComfortable);
                 participantData.curvedscreenDmmComfortable = CalculateDMM(participantData.curvedScreenLineHeightComfortable, participantData.curvedScreenDistanceToScreenComfortable);
@@ -196,10 +197,10 @@ public class Controller : MonoBehaviour
             else if (currentExperimentStage == (int)ExperimentStage.curvedScreenLineWidth)
             {
                 participantData.curvedScreenParticipantPosLineWidth = head.transform.localPosition;
-                participantData.curvedScreenDistanceToScreenLineWidth = participantData.curvedScreenPosComfortable.z - participantData.curvedScreenParticipantPosLineWidth.z;
-                participantData.curvedScreenLineWidth = text.rectTransform.rect.width;
-                participantData.curvedScreenAngularSizeLineWidth = 2 * CalculateAngularSize((participantData.curvedScreenLineWidth / 2), participantData.curvedScreenDistanceToScreenLineWidth);
-                participantData.curvedScreenDMMLineWidth = CalculateDMM(participantData.curvedScreenLineWidth, participantData.curvedScreenDistanceToScreenLineWidth);
+                participantData.curvedScreenDistanceToScreenLineWidth = (INITIAL_RADIUS * participantData.curvedScreenScaleComfortable.z + participantData.curvedScreenPosComfortable.z) - participantData.curvedScreenParticipantPosLineWidth.z;
+                participantData.curvedScreenWidth = textMeshList[currentVisibleObject].GetComponent<MeshFilter>().mesh.bounds.extents.x;
+                participantData.curvedScreenAngularSizeLineWidth = 2 * CalculateAngularSize((participantData.curvedScreenWidth / 2), participantData.curvedScreenDistanceToScreenLineWidth);
+                participantData.curvedScreenDMMLineWidth = CalculateDMM(participantData.curvedScreenWidth, participantData.curvedScreenDistanceToScreenLineWidth);
                 print("Storing data - Curved screen line width");
             }
             else if (currentExperimentStage == (int) ExperimentStage.curvedScreenMinimum)
@@ -208,7 +209,7 @@ public class Controller : MonoBehaviour
                 participantData.curvedScreenPosMinimum = textContainer.transform.localPosition;
                 participantData.curvedScreenScaleMinimum = textContainer.transform.localScale;
                 participantData.curvedScreenDistanceToScreenMinimum = (INITIAL_RADIUS * participantData.curvedScreenScaleMinimum.z + participantData.curvedScreenPosMinimum.z) - participantData.curvedScreenParticipantPosMinimum.z;
-                participantData.currentlyVisibleObjectMinimum = currentVisibleObject;
+                participantData.curvedScreenLineWidthMinimum = (currentVisibleObject * 0.2f) + 0.8f;
                 participantData.curvedScreenLineHeightMinimum = INITIAL_CURVED_TEXT_HEIGHT * participantData.curvedScreenScaleMinimum.y;
                 participantData.curvedScreenAngularSizeMinimum = CalculateAngularSize(participantData.curvedScreenLineHeightMinimum, participantData.curvedScreenDistanceToScreenMinimum);
                 participantData.curvedscreenDmmMinimum = CalculateDMM(participantData.curvedScreenLineHeightMinimum, participantData.curvedScreenDistanceToScreenMinimum);
@@ -230,9 +231,15 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             Mesh mesh = textMeshList[currentVisibleObject].GetComponent<MeshFilter>().mesh; // Bounding box, but not actual text size.
-            print(mesh.bounds.size.x);
-            print(mesh.bounds.size.y);
-            print(mesh.bounds.size.z);
+            //print(mesh.bounds.size.x);
+            //print(mesh.bounds.size.y);
+            //print(mesh.bounds.size.z);
+
+            //print(mesh.bounds.min.x);
+            //print(mesh.bounds.max.x);
+            print(mesh.bounds.extents.x);
+            print(mesh.bounds.extents.y);
+            print(mesh.bounds.extents.z);
 
             // At the exported size from Blender the first line is 0.069 high
             // The other lines are 0.1 units high, which is what we divide by to get the lineCount
@@ -246,6 +253,7 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I) || (SteamVR_Actions._default.GrabGrip.GetStateDown(SteamVR_Input_Sources.Any) && DEBUG))
         {
             flatScreen.localPosition = new Vector3(0f, head.transform.localPosition.y, 3.0f);
+            textContainer.localPosition = new Vector3(textContainer.localPosition.x, head.transform.localPosition.y, textContainer.localPosition.z);
 
             currentExperimentStage++;
             if (currentExperimentStage == (int) ExperimentStage.flatScreenComfortable) ChangeVisibleScreen(ScreenType.flatScreen);
@@ -258,6 +266,8 @@ public class Controller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             flatScreen.localPosition = new Vector3(0f, head.transform.localPosition.y, 3.0f);
+            textContainer.localPosition = new Vector3(textContainer.localPosition.x, head.transform.localPosition.y, textContainer.localPosition.z);
+
 
             currentExperimentStage--;
             if (currentExperimentStage == (int) ExperimentStage.flatScreenComfortable) ChangeVisibleScreen(ScreenType.flatScreen);
@@ -274,6 +284,14 @@ public class Controller : MonoBehaviour
             if (currentTextShown == dataController.AllTextData.Length) currentTextShown = 0;
             text.text = dataController.AllTextData[currentTextShown].Text;
         }
+
+        // Update head position for the different screens.
+        if (Input.GetKeyDown(KeyCode.H) || (SteamVR_Actions._default.GrabGrip.GetStateDown(SteamVR_Input_Sources.Any) && DEBUG))
+        {
+            flatScreen.localPosition = new Vector3(0f, head.transform.localPosition.y, 3.0f);
+            textContainer.localPosition = new Vector3(textContainer.localPosition.x, head.transform.localPosition.y, textContainer.localPosition.z);
+        }
+
     }
 
     /*
@@ -293,7 +311,7 @@ public class Controller : MonoBehaviour
 
         if (screenType == ScreenType.curvedScreen)
         { 
-            position = new Vector3(position.x, position.y, position.z - increment * 2);
+            position = new Vector3(position.x, position.y, position.z - increment * 3); // RECHECK THIS VALUE FOR INCREMENT * n
             obj.transform.localPosition = position;
         }
     }

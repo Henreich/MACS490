@@ -51,7 +51,7 @@ public class ExperimentData
     public Vector3 curvedScreenPosComfortable { get; set; }
     public Vector3 curvedScreenScaleComfortable { get; set; }
     public float curvedScreenDistanceToScreenComfortable { get; set; }
-    public float currentlyVisibleObjectComfortable { get; set; }
+    public float curvedScreenLineWidthComfortable { get; set; }
     public float curvedScreenLineHeightComfortable { get; set; }
     public float curvedScreenAngularSizeComfortable { get; set; }
     public float curvedscreenDmmComfortable { get; set; }
@@ -59,7 +59,7 @@ public class ExperimentData
     // Line width
     public Vector3 curvedScreenParticipantPosLineWidth { get; set; }
     public float curvedScreenDistanceToScreenLineWidth { get; set; }
-    public float curvedScreenLineWidth { get; set; }
+    public float curvedScreenWidth { get; set; }
     public float curvedScreenAngularSizeLineWidth { get; set; }
     public float curvedScreenDMMLineWidth { get; set; }
 
@@ -68,7 +68,7 @@ public class ExperimentData
     public Vector3 curvedScreenPosMinimum { get; set; }
     public Vector3 curvedScreenScaleMinimum { get; set; }
     public float curvedScreenDistanceToScreenMinimum { get; set; }
-    public float currentlyVisibleObjectMinimum { get; set; }
+    public float curvedScreenLineWidthMinimum { get; set; }
     public float curvedScreenLineHeightMinimum { get; set; }
     public float curvedScreenAngularSizeMinimum { get; set; }
     public float curvedscreenDmmMinimum { get; set; }
