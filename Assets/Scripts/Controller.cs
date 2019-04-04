@@ -14,6 +14,7 @@ public class Controller : MonoBehaviour
 
     public TextMeshPro text;
     public Transform flatScreen;
+    public Transform screen;
     public Camera head;
     public Transform textContainer;
     public Transform curvedTextMeshColletion;
@@ -84,15 +85,24 @@ public class Controller : MonoBehaviour
         // Where the touch pad was triggered
         if (touchpadValue.x > TRIGGER_THRESHOLD_SMOOTH_SCALING) // RIGHT
         {
-            if (currentScreenType == (int)ScreenType.flatScreen && currentExperimentStage != (int)ExperimentStage.flatScreenLineWidth) text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
-            if (currentScreenType == (int)ScreenType.curvedScreen && currentExperimentStage != (int)ExperimentStage.curvedScreenLineWidth) ChangeObjectSize(textContainer, true);
+            if (currentScreenType == (int)ScreenType.flatScreen && currentExperimentStage != (int)ExperimentStage.flatScreenLineWidth)
+            {
+                text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
+                //ChangeObjectSize(flatScreen.transform, true, ScreenType.flatScreen);
+                //ChangeObjectSize(text.rectTransform, true);
+            }
+            if (currentScreenType == (int)ScreenType.curvedScreen && currentExperimentStage != (int)ExperimentStage.curvedScreenLineWidth) ChangeObjectSize(textContainer, true, ScreenType.curvedScreen);
 
         }
         else if (touchpadValue.x < -TRIGGER_THRESHOLD_SMOOTH_SCALING) // LEFT
         {
-            if (currentScreenType == (int)ScreenType.flatScreen && currentExperimentStage != (int)ExperimentStage.flatScreenLineWidth) text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
-            if (currentScreenType == (int)ScreenType.curvedScreen && currentExperimentStage != (int)ExperimentStage.curvedScreenLineWidth) ChangeObjectSize(textContainer, false);
-
+            if (currentScreenType == (int)ScreenType.flatScreen && currentExperimentStage != (int)ExperimentStage.flatScreenLineWidth)
+            {
+                text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
+                //ChangeObjectSize(flatScreen.transform, false, ScreenType.flatScreen);
+                //ChangeObjectSize(text.rectTransform, false);
+            }
+            if (currentScreenType == (int)ScreenType.curvedScreen && currentExperimentStage != (int)ExperimentStage.curvedScreenLineWidth) ChangeObjectSize(textContainer, false, ScreenType.curvedScreen);
         }
         
 
@@ -102,12 +112,12 @@ public class Controller : MonoBehaviour
             // Where the touch pad was triggered
             if (touchpadValue.y > TRIGGER_THRESHOLD) // UP
             {
-                if (currentScreenType == (int)ScreenType.flatScreen && currentExperimentStage == (int)ExperimentStage.flatScreenLineWidth) flatScreen.localPosition = new Vector3(flatScreen.localPosition.x, flatScreen.localPosition.y, flatScreen.localPosition.z + 1.0f);
+                if (currentScreenType == (int)ScreenType.flatScreen && currentExperimentStage == (int)ExperimentStage.flatScreenLineWidth) ChangeObjectSize(screen, text.rectTransform, true);
                 if (currentScreenType == (int)ScreenType.curvedScreen && currentExperimentStage == (int)ExperimentStage.curvedScreenLineWidth) ChangeVisibleObjectInList(TextWidth.increase);
             }
             else if (touchpadValue.y < -TRIGGER_THRESHOLD) // DOWN
             {
-                if (currentScreenType == (int)ScreenType.flatScreen && currentExperimentStage == (int)ExperimentStage.flatScreenLineWidth) flatScreen.localPosition = new Vector3(flatScreen.localPosition.x, flatScreen.localPosition.y, flatScreen.localPosition.z - 1.0f);
+                if (currentScreenType == (int)ScreenType.flatScreen && currentExperimentStage == (int)ExperimentStage.flatScreenLineWidth) ChangeObjectSize(screen, text.rectTransform, false);
                 if (currentScreenType == (int)ScreenType.curvedScreen && currentExperimentStage == (int)ExperimentStage.curvedScreenLineWidth) ChangeVisibleObjectInList(TextWidth.decrease);
             }
 
@@ -269,7 +279,7 @@ public class Controller : MonoBehaviour
     /*
      * Change the size of the object in increments and keep it in the same place on the z-axis.
      */
-    private void ChangeObjectSize(Transform obj, bool increase)
+    private void ChangeObjectSize(Transform obj, bool increase, ScreenType screenType)
     {
         float increment = (increase) ? 0.001f : -0.001f;
 
@@ -278,9 +288,32 @@ public class Controller : MonoBehaviour
 
         scale = new Vector3(scale.x + increment, scale.y + increment, scale.z + increment);
         position = new Vector3(position.x, position.y, position.z - increment * 3);
-
         obj.transform.localScale = scale;
-        obj.transform.localPosition = position;
+
+
+        if (screenType == ScreenType.curvedScreen)
+        { 
+            position = new Vector3(position.x, position.y, position.z - increment * 2);
+            obj.transform.localPosition = position;
+        }
+    }
+
+    private void ChangeObjectSize(RectTransform obj, bool increase)
+    {
+        float increment = (increase) ? 0.001f : -0.001f;
+        obj.sizeDelta = new Vector2(obj.rect.width + increment, obj.rect.height + increment);
+    }
+
+    /*
+     * Change the size of both the obj and the rectObj accordingly.
+     */
+    private void ChangeObjectSize(Transform screenObj, RectTransform textObj, bool increase)
+    {
+        float increment = 0.1f;
+        float sizeModifier = (increase) ? increment : -increment;
+
+        textObj.sizeDelta = new Vector2(text.rectTransform.rect.width + sizeModifier, text.rectTransform.rect.height);
+        screenObj.localScale = new Vector3(textObj.rect.width + increment, textObj.rect.height + increment, screenObj.localScale.z);
     }
 
     /*
