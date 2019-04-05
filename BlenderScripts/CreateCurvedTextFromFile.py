@@ -25,15 +25,16 @@ def createCurvedText(text, textBoxWidth, circleObj):
     
     textList = text.replace("\r\n", "").split("|")
     #print(textList)
-    if textBoxWidth < 2.5:
-        stringToBeRead = textList[0]
-    else:
-        stringToBeRead = textList[0] + textList[1]
+    stringToBeRead = textList[0]
     
-    if textBoxWidth > 6.7:
+    if textBoxWidth > 1.7:
+        stringToBeRead = stringToBeRead + textList[1]
+    if textBoxWidth > 3.0:
         stringToBeRead = stringToBeRead + textList[2]
-    if textBoxWidth > 7.5:
+    if textBoxWidth > 5.5:
         stringToBeRead = stringToBeRead + textList[3]
+    if textBoxWidth > 7.5:
+        stringToBeRead = stringToBeRead + textList[4]
     textObject.data.body = stringToBeRead
     
 
@@ -108,6 +109,6 @@ data = getTextFromFile()
 
 for Text in data['Items']:
     if Text['Id'] == 4:
-        createCurvedTextsAtDistance(4, 36, Text, createCircle(3))
+        createCurvedTextsAtDistance(4, 47, Text, createCircle(3))
         #createCurvedTextsAtDistance(20, 21, Text, createCircle(3))
 

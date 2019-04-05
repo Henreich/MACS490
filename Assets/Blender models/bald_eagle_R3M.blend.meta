@@ -56,6 +56,8 @@ ModelImporter:
     100100: Text84
     100102: Text86
     100104: Text88
+    100106: Text90
+    100108: Text92
     400000: //RootNode
     400002: Text10
     400004: Text11
@@ -109,6 +111,8 @@ ModelImporter:
     400100: Text84
     400102: Text86
     400104: Text88
+    400106: Text90
+    400108: Text92
     2100000: Black_font_colour
     2300000: //RootNode
     2300002: Text10
@@ -163,6 +167,8 @@ ModelImporter:
     2300100: Text84
     2300102: Text86
     2300104: Text88
+    2300106: Text90
+    2300108: Text92
     3300000: //RootNode
     3300002: Text10
     3300004: Text11
@@ -216,6 +222,8 @@ ModelImporter:
     3300100: Text84
     3300102: Text86
     3300104: Text88
+    3300106: Text90
+    3300108: Text92
     4300000: Circle-radius-3
     4300002: Text30
     4300004: Text29
@@ -269,6 +277,8 @@ ModelImporter:
     4300100: Text58
     4300102: Text56
     4300104: Text54
+    4300106: Text92
+    4300108: Text90
     7400000: Default Take
     9500000: //RootNode
     2186277476908879412: ImportLogs

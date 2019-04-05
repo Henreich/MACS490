@@ -18,6 +18,7 @@ public class Controller : MonoBehaviour
     public Camera head;
     public Transform textContainer;
     public Transform curvedTextMeshColletion;
+    public Transform curvedScreensCollection;
 
     public TMP_CharacterInfo characterInfo;
 
@@ -49,6 +50,7 @@ public class Controller : MonoBehaviour
     private int currentVisibleObject = 0;
     private enum TextWidth { increase, decrease };
     private List<Transform> textMeshList;
+    private List<Transform> curvedScreenList;
     private readonly float INITIAL_RADIUS = 3.0f; // When generated in Blender.
     private readonly float INITIAL_CURVED_TEXT_HEIGHT = 0.1f; // The y-dimension one line of the Blender generated text.
 
@@ -72,8 +74,17 @@ public class Controller : MonoBehaviour
         {
             textMeshList.Add(text);
         }
+
+        curvedScreenList = new List<Transform>();
+        foreach (Transform curvedScreen in curvedScreensCollection)
+        {
+            curvedScreenList.Add(curvedScreen);
+        }
+
+        
         currentVisibleObject = (int) textMeshList.Count / 2;
         textMeshList[currentVisibleObject].gameObject.SetActive(true);
+        ChangeVisibleCurvedScreen();
     }
 
     // Update is called once per frame
@@ -339,7 +350,7 @@ public class Controller : MonoBehaviour
      * or down in the list. Only one object should be visible at a time.
      */
     private void ChangeVisibleObjectInList(TextWidth action)
-    {
+    { // 13 + 6 + 6 + 6 ----> max
         switch (action)
         {
             case TextWidth.increase:
@@ -347,6 +358,7 @@ public class Controller : MonoBehaviour
                 {
                     textMeshList[currentVisibleObject++].gameObject.SetActive(false);
                     textMeshList[currentVisibleObject].gameObject.SetActive(true);
+                    ChangeVisibleCurvedScreen();
                 }
                 break;
             case TextWidth.decrease:
@@ -354,12 +366,41 @@ public class Controller : MonoBehaviour
                 {
                     textMeshList[currentVisibleObject--].gameObject.SetActive(false);
                     textMeshList[currentVisibleObject].gameObject.SetActive(true);
+                    ChangeVisibleCurvedScreen();
                 }
                 break;
             default:
                 Debug.LogError("Invalid option provided.");
                 break;
         }
+    }
+
+    /*
+     * Decide which screen should appear behind the text. This entirely depends on the  range of text meshes
+     * that has been generated from Blender and will not look proper if the meshes were to be changed.
+     * Ideally this should be calculated from the bounds.extends of the text meshes and compared to the
+     * bounds.extends of the curved screens, but this does not seem to be worth the time implementing as
+     * of now.
+     * TODO: Use bounds.extents instead of hardcoding the values for when a particular screen should be
+     * displayed.
+     */
+    private void ChangeVisibleCurvedScreen()
+    {
+        int firstRange = 13;
+        int screenRange = 6; // How long the screen should be visible before the next one should be displayed.
+
+        // Hide all active curvedScreens
+        foreach(Transform curvedScreen in curvedScreenList)
+        {
+            if (curvedScreen.gameObject.activeSelf) curvedScreen.gameObject.SetActive(false);
+        }
+
+        //13 + 6 + 6 + 6
+        if (currentVisibleObject < firstRange) curvedScreenList[0].gameObject.SetActive(true);
+        else if (currentVisibleObject < firstRange + screenRange) curvedScreenList[1].gameObject.SetActive(true);
+        else if (currentVisibleObject < firstRange + screenRange * 2) curvedScreenList[2].gameObject.SetActive(true);
+        else if (currentVisibleObject < firstRange + screenRange * 3) curvedScreenList[3].gameObject.SetActive(true);
+        else if (currentVisibleObject >= firstRange + screenRange * 3) curvedScreenList[4].gameObject.SetActive(true);
     }
 
     /*
