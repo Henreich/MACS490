@@ -59,6 +59,7 @@ public class ExperimentData
     // Line width
     public Vector3 curvedScreenParticipantPosLineWidth { get; set; }
     public float curvedScreenDistanceToScreenLineWidth { get; set; }
+    public float curvedScreenLineWidth { get; set; }
     public float curvedScreenWidth { get; set; }
     public float curvedScreenAngularSizeLineWidth { get; set; }
     public float curvedScreenDMMLineWidth { get; set; }

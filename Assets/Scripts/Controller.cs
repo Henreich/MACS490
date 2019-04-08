@@ -211,6 +211,7 @@ public class Controller : MonoBehaviour
             {
                 participantData.curvedScreenParticipantPosLineWidth = head.transform.localPosition;
                 participantData.curvedScreenDistanceToScreenLineWidth = (INITIAL_RADIUS * participantData.curvedScreenScaleComfortable.z + participantData.curvedScreenPosComfortable.z) - participantData.curvedScreenParticipantPosLineWidth.z;
+                participantData.curvedScreenLineWidth = (currentVisibleObject * 0.2f) + 0.8f;
                 participantData.curvedScreenWidth = textMeshList[currentVisibleObject].GetComponent<MeshFilter>().mesh.bounds.extents.x;
                 participantData.curvedScreenAngularSizeLineWidth = 2 * CalculateAngularSize((participantData.curvedScreenWidth / 2), participantData.curvedScreenDistanceToScreenLineWidth);
                 participantData.curvedScreenDMMLineWidth = CalculateDMM(participantData.curvedScreenWidth, participantData.curvedScreenDistanceToScreenLineWidth);
