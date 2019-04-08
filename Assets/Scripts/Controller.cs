@@ -85,6 +85,8 @@ public class Controller : MonoBehaviour
         currentVisibleObject = (int) textMeshList.Count / 2;
         textMeshList[currentVisibleObject].gameObject.SetActive(true);
         ChangeVisibleCurvedScreen();
+
+        Debug.LogWarning("Remember to update the participantId!");
     }
 
     // Update is called once per frame
@@ -225,6 +227,7 @@ public class Controller : MonoBehaviour
                 participantData.curvedScreenAngularSizeMinimum = CalculateAngularSize(participantData.curvedScreenLineHeightMinimum, participantData.curvedScreenDistanceToScreenMinimum);
                 participantData.curvedscreenDmmMinimum = CalculateDMM(participantData.curvedScreenLineHeightMinimum, participantData.curvedScreenDistanceToScreenMinimum);
                 print("Storing data - Curved screen minimum");
+                Debug.LogWarning("Remember to save data! Q - Quit and save.");
             }
         }
 
