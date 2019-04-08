@@ -316,7 +316,6 @@ public class Controller : MonoBehaviour
         Vector3 position = obj.localPosition;
 
         scale = new Vector3(scale.x + increment, scale.y + increment, scale.z + increment);
-        position = new Vector3(position.x, position.y, position.z - increment * 3);
         obj.transform.localScale = scale;
 
 
