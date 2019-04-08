@@ -26,7 +26,7 @@ public class FileHandler : ScriptableObject
             using (var append = File.AppendText(filePath))
             {
                 string csvFormattedOutput = string.Format(
-                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54},{55},{56},{57},{58},{59},{60},{61},{62}",
+                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54},{55},{56},{57},{58},{59},{60},{61},{62},{63}",
                     // Flat Screen
                     // Comfortable text size
                     data.participantId,
@@ -86,6 +86,7 @@ public class FileHandler : ScriptableObject
                     data.curvedScreenParticipantPosLineWidth.x,
                     data.curvedScreenParticipantPosLineWidth.z,
                     data.curvedScreenDistanceToScreenLineWidth,
+                    data.curvedScreenLineWidth,
                     data.curvedScreenWidth,
                     data.curvedScreenAngularSizeLineWidth,
                     data.curvedScreenDMMLineWidth,
@@ -174,33 +175,34 @@ public class FileHandler : ScriptableObject
                 string col46 = "curvedScreenParticipantPosLineWidthX";
                 string col47 = "curvedScreenParticipantPosLineWidthY";
                 string col48 = "curvedScreenDistanceToScreenLineWidth";
-                string col49 = "curvedScreenWidth";
-                string col50 = "curvedScreenAngularSizeLineWidth";
-                string col51 = "curvedScreenDMMLineWidth";
+                string col49 = "curvedScreenLineWidth";
+                string col50 = "curvedScreenWidth";
+                string col51 = "curvedScreenAngularSizeLineWidth";
+                string col52 = "curvedScreenDMMLineWidth";
 
                 // Minimum text size
-                string col52  = "curvedScreenParticipantPosMinimumX";
-                string col53  = "curvedScreenParticipantPosMinimumZ";
-                string col54  = "curvedScreenPosMinimumX";
-                string col55  = "curvedScreenPosMinimumZ";
-                string col56  = "curvedScreenScaleMinimumX";
-                string col57  = "curvedScreenScaleMinimumY";
-                string col58  = "curvedScreenScaleMinimumZ";
-                string col59  = "curvedScreenDistanceToScreenMinimum";
-                string col60  = "curvedScreenLineWidthMinimum";
-                string col61  = "curvedScreenLineHeightMinimum";
-                string col62  = "curvedScreenAngularSizeMinimum";
-                string col63  = "curvedscreenDmmMinimum";
+                string col53  = "curvedScreenParticipantPosMinimumX";
+                string col54  = "curvedScreenParticipantPosMinimumZ";
+                string col55  = "curvedScreenPosMinimumX";
+                string col56  = "curvedScreenPosMinimumZ";
+                string col57  = "curvedScreenScaleMinimumX";
+                string col58  = "curvedScreenScaleMinimumY";
+                string col59  = "curvedScreenScaleMinimumZ";
+                string col60  = "curvedScreenDistanceToScreenMinimum";
+                string col61  = "curvedScreenLineWidthMinimum";
+                string col62  = "curvedScreenLineHeightMinimum";
+                string col63  = "curvedScreenAngularSizeMinimum";
+                string col64  = "curvedscreenDmmMinimum";
 
                 string csvFormattedOutput = string.Format(
-                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54},{55},{56},{57},{58},{59},{60},{61},{62}",
+                    "{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54},{55},{56},{57},{58},{59},{60},{61},{62},{63}",
                     col1, col2, col3, col4, col5, col6, col7, col8, col9, col10, 
                     col11, col12, col13, col14, col15, col16, col17, col18, col19, col20, 
                     col21, col22, col23, col24, col25, col26, col27, col28, col29, col30, 
                     col31, col32, col33, col34, col35, col36, col37, col38, col39, col40, 
                     col41, col42, col43, col44, col45, col46, col47, col48, col49, col50, 
                     col51, col52, col53, col54, col55, col56, col57, col58, col59, col60, 
-                    col61, col62, col63
+                    col61, col62, col63, col64
                 );
 
                 writer.WriteLine(csvFormattedOutput);
