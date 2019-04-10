@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.henrihso_readbility_vr.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "D:\\Unity_Projects\\Henrihso_MACS490\\actions.json",
+      "action_manifest_path": "C:\\Users\\Simon\\Documents\\Unity Projects\\Henrihso_MACS490\\actions.json",
       "strings": {
         "en_us": {
           "name": "Henrihso_readbility_VR [Testing]"
