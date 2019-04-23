@@ -6,7 +6,7 @@ using UnityEngine;
 public class FileHandler : ScriptableObject
 {
     private string folderPath = "ExperimentData/";
-    private string fileName = "participant_data";
+    private string fileName = "participant_data_pimax";
     private readonly string suffix = ".txt";
 
     /*
