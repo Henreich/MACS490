@@ -23,8 +23,6 @@ public class Controller : MonoBehaviour
     public TMP_CharacterInfo characterInfo;
 
     private DataController dataController;
-    //private readonly double MINIMUM_FONT_SIZE = 1.0f;
-    //private readonly double MAXIMUM_FONT_SIZE = 7.0f;
     private readonly double TRIGGER_THRESHOLD = 0.0f;
     private readonly double TRIGGER_THRESHOLD_SMOOTH_SCALING = 0.3f;
     private readonly float TEXT_SIZING_INCREMENTS = 0.0001f;
@@ -52,7 +50,7 @@ public class Controller : MonoBehaviour
     private List<Transform> textMeshList;
     private List<Transform> curvedScreenList;
     private readonly float INITIAL_RADIUS = 3.0f; // When generated in Blender.
-    private readonly float INITIAL_CURVED_TEXT_HEIGHT = 0.1f; // The y-dimension one line of the Blender generated text.
+    private readonly float INITIAL_CURVED_TEXT_HEIGHT = 0.1f; // The y-dimension of one line from the Blender generated text.
 
     [SerializeField]
     private int participantId = 0;
@@ -102,8 +100,6 @@ public class Controller : MonoBehaviour
             if (currentScreenType == (int)ScreenType.flatScreen && currentExperimentStage != (int)ExperimentStage.flatScreenLineWidth)
             {
                 text.fontSize += TEXT_SIZING_INCREMENTS * (touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
-                //ChangeObjectSize(flatScreen.transform, true, ScreenType.flatScreen);
-                //ChangeObjectSize(text.rectTransform, true);
             }
             if (currentScreenType == (int)ScreenType.curvedScreen && currentExperimentStage != (int)ExperimentStage.curvedScreenLineWidth) ChangeObjectSize(textContainer, true, ScreenType.curvedScreen);
 
@@ -113,8 +109,6 @@ public class Controller : MonoBehaviour
             if (currentScreenType == (int)ScreenType.flatScreen && currentExperimentStage != (int)ExperimentStage.flatScreenLineWidth)
             {
                 text.fontSize -= TEXT_SIZING_INCREMENTS * (-touchpadValue.x * TEXT_SIZE_CHANGE_MODIFIER);
-                //ChangeObjectSize(flatScreen.transform, false, ScreenType.flatScreen);
-                //ChangeObjectSize(text.rectTransform, false);
             }
             if (currentScreenType == (int)ScreenType.curvedScreen && currentExperimentStage != (int)ExperimentStage.curvedScreenLineWidth) ChangeObjectSize(textContainer, false, ScreenType.curvedScreen);
         }
@@ -136,16 +130,6 @@ public class Controller : MonoBehaviour
             }
 
         }
-        
-
-
-        //float triggerValue = squeezeAction.GetAxis(SteamVR_Input_Sources.Any);
-
-        //if (triggerValue > 0.0f)
-        //{
-
-        //}
-
 
         /**
          * Store data that is relevant to the currentExperimentStage
@@ -245,20 +229,11 @@ public class Controller : MonoBehaviour
          */
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Mesh mesh = textMeshList[currentVisibleObject].GetComponent<MeshFilter>().mesh; // Bounding box, but not actual text size.
-            //print(mesh.bounds.size.x);
-            //print(mesh.bounds.size.y);
-            //print(mesh.bounds.size.z);
-
-            //print(mesh.bounds.min.x);
-            //print(mesh.bounds.max.x);
-            print(mesh.bounds.extents.x);
-            print(mesh.bounds.extents.y);
-            print(mesh.bounds.extents.z);
-
-            // At the exported size from Blender the first line is 0.069 high
-            // The other lines are 0.1 units high, which is what we divide by to get the lineCount
-            print(Mathf.Round(mesh.bounds.size.y / 0.1f));
+            for (int i = 0; i < text.textInfo.lineCount; i++)
+            {
+                fh.WriteToFile(string.Format("{0}, {1}, {2}, {3}",
+                    i, text.textInfo.lineInfo[i].baseline, text.textInfo.lineInfo[i].ascender, text.textInfo.lineInfo[i].descender));
+            }
         }
 
 
@@ -276,7 +251,8 @@ public class Controller : MonoBehaviour
             print(string.Format("Changing to experiment stage: {0}", currentExperimentStage));
         }        
         /*
-         * Increment currentExperimentStage and make sure the screentype changed accordingly.
+         * Decrement currentExperimentStage and make sure the screentype changed accordingly.
+         * Should not be needed during normal experiment progression.
          */
         if (Input.GetKeyDown(KeyCode.O))
         {

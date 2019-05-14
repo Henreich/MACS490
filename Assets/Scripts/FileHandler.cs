@@ -6,16 +6,14 @@ using UnityEngine;
 public class FileHandler : ScriptableObject
 {
     private string folderPath = "ExperimentData/";
-    private string fileName = "participant_data_pimax";
-    private readonly string suffix = ".txt";
+    private string fileName = "participant_data";
+    private readonly string suffix = ".csv";
 
     /*
      * Writes the ExperimentData to file in .csv format. Each participant
      * has one row of data, meaning there's a lot of columns. This is because
      * the data will be interpreted by SPSS. 
      */
-    //string col = "";
-    // ,{}
     public void WriteToFile(ExperimentData data)
     {
         string filePath = folderPath + fileName + suffix;
@@ -231,30 +229,6 @@ public class FileHandler : ScriptableObject
         else // New participant, create new file with column identifiers on first line.
         {
             using (var writer = new StreamWriter("ExperimentData/lineInfo.txt"))
-            {
-
-                writer.WriteLine(data);
-                writer.Flush();
-                writer.Close();
-            }
-        }
-    }
-
-    public void WriteToFile(float data)
-    {
-        if (File.Exists("ExperimentData/characterinfo.txt"))
-        {
-            using (var append = File.AppendText("ExperimentData/characterinfo.txt"))
-            {
-                append.WriteLine(data);
-                append.Flush();
-                append.Close();
-            }
-
-        }
-        else // New participant, create new file with column identifiers on first line.
-        {
-            using (var writer = new StreamWriter("ExperimentData/characterinfo.txt"))
             {
 
                 writer.WriteLine(data);

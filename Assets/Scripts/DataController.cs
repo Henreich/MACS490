@@ -45,23 +45,6 @@ public class DataController : ScriptableObject
         }
     }
 
-    /**
-     * Creates dummy JSON formatted file with 4 array objects.
-     **/
-    public void CreateDummyData()
-    {
-        //TextCollection collection = new TextCollection();
-        //collection.allTextData.Add(new TextData(0, "Lorem ipsum"));
-        //collection.allTextData.Add(new TextData(1, "I can't believe it's not lorem ipsum!"));
-        //collection.allTextData.Add(new TextData(2, "Superhot is pretty fun"));
-        //collection.allTextData.Add(new TextData(3, "All good things are three"));
-
-        //TextData[] arrayToJson = collection.allTextData.ToArray();
-
-        //string json = JsonHelper.ToJson(arrayToJson, true);
-        //File.WriteAllText(Application.dataPath + "/Scripts/test.json", json);
-    }
-
     [System.Serializable]
     private class TextCollection
     {
