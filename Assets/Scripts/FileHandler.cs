@@ -216,9 +216,11 @@ public class FileHandler : ScriptableObject
      */
     public void WriteToFile(string data)
     {
-        if (File.Exists("ExperimentData/lineInfo.txt"))
+        string path = "ExperimentData/post_hoc_CPL.csv";
+
+        if (File.Exists(path))
         {
-            using (var append = File.AppendText("ExperimentData/lineInfo.txt"))
+            using (var append = File.AppendText(path))
             {
                 append.WriteLine(data);
                 append.Flush();
@@ -228,7 +230,7 @@ public class FileHandler : ScriptableObject
         }
         else // New participant, create new file with column identifiers on first line.
         {
-            using (var writer = new StreamWriter("ExperimentData/lineInfo.txt"))
+            using (var writer = new StreamWriter(path))
             {
 
                 writer.WriteLine(data);
