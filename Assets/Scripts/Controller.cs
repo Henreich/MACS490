@@ -229,11 +229,16 @@ public class Controller : MonoBehaviour
          */
         if (Input.GetKeyDown(KeyCode.P))
         {
-            for (int i = 0; i < text.textInfo.lineCount; i++)
-            {
-                fh.WriteToFile(string.Format("{0}, {1}, {2}, {3}",
-                    i, text.textInfo.lineInfo[i].baseline, text.textInfo.lineInfo[i].ascender, text.textInfo.lineInfo[i].descender));
-            }
+            //for (int i = 0; i < text.textInfo.lineCount; i++)
+            //{
+            //    fh.WriteToFile(string.Format("{0}, {1}, {2}, {3}",
+            //        i, text.textInfo.lineInfo[i].baseline, text.textInfo.lineInfo[i].ascender, text.textInfo.lineInfo[i].descender));
+            //}
+
+            //CalculateCPL(0.595191420f, 1.420f); // Mean flat screen, Vive
+            //CalculateCPL(0.531113993f, 1.450f); // Mean flat screen, Pimax
+            //CalculateCPL(0.61762282f, 3.8f); // Mean curved screen, Vive
+            //CalculateCPL(0.56514657f, 4.357f); // Mean curved screen, Pimax
         }
 
 
@@ -412,5 +417,19 @@ public class Controller : MonoBehaviour
     private float CalculateDMM(float size, float distance)
     {
         return size / distance * 1000; // M to mm
+    }
+
+    private void CalculateCPL (float fontSize, float lineWidth)
+    {
+        text.fontSize = fontSize;
+        text.rectTransform.sizeDelta = new Vector2(lineWidth, text.rectTransform.rect.height);
+
+        text.ForceMeshUpdate();
+
+        for (int i = 0; i < text.textInfo.lineCount; i++)
+        {
+            fh.WriteToFile(string.Format("{0}, {1}, {2}, {3}",
+                i, text.textInfo.lineInfo[i].characterCount, text.textInfo.lineInfo[i].spaceCount, text.textInfo.lineInfo[i].wordCount));
+        }
     }
 }
